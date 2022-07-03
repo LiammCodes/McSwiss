@@ -79,6 +79,10 @@ namespace McSwiss
             btnSettings.BackColor = Color.FromArgb(32, 32, 32);
 
             this.pnlFormLoader.Controls.Clear();
+            frmSegmentGen FrmSegmentGen_Var = new frmSegmentGen(this) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmSegmentGen_Var.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FrmSegmentGen_Var);
+            FrmSegmentGen_Var.Show();
         }
 
         private void btnThumbnailGen_Click(object sender, EventArgs e)

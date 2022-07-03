@@ -100,7 +100,7 @@ namespace McSwiss
             {
                 // Create process for trimming the video
                 Process ffmpeg = new Process();
-                ffmpeg.StartInfo.RedirectStandardOutput = false;
+                ffmpeg.StartInfo.RedirectStandardOutput = true;
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
                 ffmpeg.StartInfo.UseShellExecute = false;
@@ -114,11 +114,11 @@ namespace McSwiss
                 string newFileName = string.Format("{0} Prev.{1}", fileName, fileExt);
                 string outputFile = Path.Join(outputPath, newFileName);
 
-                Debug.WriteLine("DEBUG::" + ffmpeg.StartInfo.FileName); // TODO: Get rid of this lol
                 ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
                 ffmpeg.Start();
                 pgProgressBar.Value += 1;
                 lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
+
                 ffmpeg.WaitForExit();
             }
 
@@ -148,7 +148,6 @@ namespace McSwiss
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(Application.ExecutablePath);
             // Create regex pattern for timestamps
             string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
             Regex rg = new Regex(pattern);
