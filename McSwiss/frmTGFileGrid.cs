@@ -89,12 +89,11 @@ namespace McSwiss
             tgProgressBar.Visible = true;
             lblProgressText.Visible = true;
 
-            // Preview Generator code
+            // Thumbnail Generator code
 
             // Formatting start time
             int timestamp = getTimeSeconds(txtboxTimestamp.Text);
-            // string command = @"-ss {0} -to {1} -i ""{2}"" -c copy ""{3}""";
-            string command = @"-i ""{0}"" -vframes 1 -an -ss {1} ""{2}""";
+            string command = @"-ss {0} -i ""{1}"" -vframes 1 -an ""{2}""";
 
             foreach (String file in selectedFiles)
             {
@@ -104,7 +103,7 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = true;
+                ffmpeg.StartInfo.CreateNoWindow = false;
 
                 // Formatting preview filename
                 string fullFileName = Path.GetFileName(file);
@@ -113,7 +112,7 @@ namespace McSwiss
                 string newFileName = string.Format("{0}.jpg", fileName);
                 string outputFile = Path.Join(outputPath, newFileName);
 
-                ffmpeg.StartInfo.Arguments = string.Format(command, file, timestamp.ToString(), outputFile);
+                ffmpeg.StartInfo.Arguments = string.Format(command, timestamp.ToString(), file, outputFile);
                 ffmpeg.Start();
                 tgProgressBar.Value += 1;
                 lblProgressText.Text = String.Format(@"Generating thumbnail {0}/{1}...", tgProgressBar.Value.ToString(), selectedFiles.Count);
