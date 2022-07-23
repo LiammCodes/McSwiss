@@ -32,6 +32,7 @@ namespace McSwiss
         {
             lstFileGrid.Items.Clear();
             lblOutputPath.Text = outputPath;
+
             foreach (String file in selectedFiles)
             {
                 imgList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(file));
@@ -74,15 +75,21 @@ namespace McSwiss
 
         private int getTimeSeconds(String time)
         {
+            // make sure textboxes are formatted right
+            string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
+            Regex rg = new Regex(pattern);
+
             int minutes = Int16.Parse(time.Split(':')[0]);
             int seconds = Int16.Parse(time.Split(':')[1]);
             int totalTime = (minutes * 60) + seconds;
-
             return totalTime;
+
         }
 
         public void generatePreviews()
         {
+            frmSettings settings = new frmSettings();
+
             pgProgressBar.Minimum = 0;
             pgProgressBar.Maximum = selectedFiles.Count;
             btnRun.Visible = false;
@@ -104,14 +111,14 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = true;
+                ffmpeg.StartInfo.CreateNoWindow = false;
 
                 // Formatting preview filename
                 string fullFileName = Path.GetFileName(file);
                 int idx = fullFileName.LastIndexOf('.');
                 string fileName = fullFileName[..idx];
                 string fileExt = fullFileName[(idx + 1)..];
-                string newFileName = string.Format("{0} Prev.{1}", fileName, fileExt);
+                string newFileName = string.Format("{0}{1}.{2}", fileName, settings.PreviewSuffix, fileExt);
                 string outputFile = Path.Join(outputPath, newFileName);
 
                 ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
@@ -152,7 +159,7 @@ namespace McSwiss
             string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
             Regex rg = new Regex(pattern);
 
-            if (!rg.IsMatch(txtboxStart.Text) && !rg.IsMatch(txtboxEnd.Text))
+            if (!rg.IsMatch(txtboxStart.Text) || !rg.IsMatch(txtboxEnd.Text))
             {
 
                 // Format error message
@@ -174,7 +181,7 @@ namespace McSwiss
                 result = MessageBox.Show(message, caption, buttons);
             }
             else
-            {
+            {  
                 generatePreviews();
             }
         }

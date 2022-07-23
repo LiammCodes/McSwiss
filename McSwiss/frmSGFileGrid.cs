@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 using System.Diagnostics;
 
 namespace McSwiss
@@ -150,7 +151,52 @@ namespace McSwiss
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            generateSegments();
+
+            bool formatedCorrectly = true;
+            bool correctLength = true;
+
+            // Create regex pattern for timestamps
+            string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
+            Regex rg = new Regex(pattern);
+
+            foreach (frmSegment segment in frmList)
+            {
+                if (!rg.IsMatch(segment.StartTime) || !rg.IsMatch(segment.EndTime))
+                {
+                    formatedCorrectly = false;
+                    break;
+                }
+
+                if (getTimeSeconds(segment.StartTime) < getTimeSeconds(segment.EndTime))
+                {
+                    correctLength = false;
+                    break;
+                }
+            }
+
+            if (!formatedCorrectly)
+            {
+                // Format error message
+                string message = "Please enter valid start and end timestamps in the following format (MM:SS) for each segment.";
+                string caption = "Timestamp Format Error";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+                result = MessageBox.Show(message, caption, buttons);
+            } 
+            else if (!correctLength)
+            {
+                // Timestamp length error message
+                string message = "Please ensure the start timestamp is before the end timestamp for each segment.";
+                string caption = "Timestamp Length Error";
+                MessageBoxButtons buttons = MessageBoxButtons.OK;
+                DialogResult result;
+                result = MessageBox.Show(message, caption, buttons);
+            } 
+            else
+            {
+                generateSegments();
+            }
+            
         }
 
         private void btnSelectOutput_Click(object sender, EventArgs e)

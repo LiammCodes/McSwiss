@@ -36,6 +36,12 @@ namespace McSwiss
             return this.pnlFormLoader;
         }
 
+        //public void getSettings()
+        //{
+         //   string PGSuffix = Properties.settings.Default.PGSuffix;
+         //   bool SGNumbers = Properties.settings.Default.SGNumbers;
+        //}
+
         private void Form1_Load(object sender, EventArgs e) {
 
         }
@@ -110,6 +116,15 @@ namespace McSwiss
             btnSettings.BackColor = Color.FromArgb(43, 43, 43);
 
             this.pnlFormLoader.Controls.Clear();
+            frmSettings FrmSettings_Var = new frmSettings(this) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmSettings_Var.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FrmSettings_Var);
+
+            FrmSettings_Var.PreviewSuffix = Properties.settings.Default.PGSuffix;
+            FrmSettings_Var.SegmentNumbers = Properties.settings.Default.SGNumbers;
+            FrmSettings_Var.SegmentLetters = Properties.settings.Default.SGLetters;
+
+            FrmSettings_Var.Show();
         }
 
         private void btnPreviewGen_Leave(object sender, EventArgs e)
