@@ -191,15 +191,13 @@
             this.lblProgressText.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblProgressText.Visible = false;
             // 
-            // frmFileGrid
+            // frmPGFileGrid
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
-            this.Controls.Add(this.lblProgressText);
-            this.Controls.Add(this.pgProgressBar);
             this.Controls.Add(this.btnSelectOutput);
             this.Controls.Add(this.lblOutputPath);
             this.Controls.Add(this.lblOutput);
@@ -209,8 +207,10 @@
             this.Controls.Add(this.txtboxEnd);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.lstFileGrid);
+            this.Controls.Add(this.pgProgressBar);
+            this.Controls.Add(this.lblProgressText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmFileGrid";
+            this.Name = "frmPGFileGrid";
             this.Text = "frmFileGrid";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragDrop);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragOver);

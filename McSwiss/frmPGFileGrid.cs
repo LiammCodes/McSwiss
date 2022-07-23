@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using McSwiss.Properties;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
@@ -15,7 +16,9 @@ namespace McSwiss
     public partial class frmPGFileGrid : Form
     {
         private List<String> selectedFiles = null;
-        private String outputPath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+        private string outputPath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
+        private string suffix = settings.Default.PGSuffix;
+        private int previewsGenerated = 0;
 
         public frmPGFileGrid()
         {
@@ -118,21 +121,50 @@ namespace McSwiss
                 int idx = fullFileName.LastIndexOf('.');
                 string fileName = fullFileName[..idx];
                 string fileExt = fullFileName[(idx + 1)..];
-                string newFileName = string.Format("{0}{1}.{2}", fileName, settings.PreviewSuffix, fileExt);
+                string newFileName = string.Format("{0}{1}.{2}", fileName, suffix, fileExt);
                 string outputFile = Path.Join(outputPath, newFileName);
 
-                ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
-                ffmpeg.Start();
-                pgProgressBar.Value += 1;
-                lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
+                // check if output file already exists
+                if (File.Exists(outputFile))
+                {
+                    // Success message
+                    string errorMessage = String.Format(@"The file {0} already exists, would you like to replace it?", outputFile);
+                    string errorTitle = "Error: File already exists";
+                    MessageBoxButtons b = MessageBoxButtons.YesNo;
+                    DialogResult r;
+                    r = MessageBox.Show(errorMessage, errorTitle, b);
+                    if(r == DialogResult.Yes)
+                    {
+                        // replace file
+                        File.Delete(outputFile);
 
-                ffmpeg.WaitForExit();
+                        ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
+                        ffmpeg.Start();
+                        pgProgressBar.Value += 1;
+                        lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
+                        ffmpeg.WaitForExit();
+                        previewsGenerated++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                } else
+                {
+                    ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
+                    ffmpeg.Start();
+                    pgProgressBar.Value += 1;
+                    lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
+                    ffmpeg.WaitForExit();
+                    previewsGenerated++;
+                }
+
             }
 
             lblProgressText.Text = "Complete.";
 
             // Success message
-            string message = String.Format(@"{0} previews have been generated and saved to {1}", selectedFiles.Count, outputPath);
+            string message = String.Format(@"{0} previews have been generated and saved to {1}", previewsGenerated, outputPath);
             string caption = "Success!";
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
