@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using McSwiss.Properties;
 
 namespace McSwiss
 {
@@ -17,6 +18,9 @@ namespace McSwiss
         private string selectedFile = null;
         private string outputPath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
         private List<frmSegment> frmList = new List<frmSegment>();
+        private string alphabet = "abcdefghijklmnopqrstuvwxyz";
+        private bool numbers = settings.Default.SGNumbers;
+        private int segmentsGenerated = 0;
 
         public frmSGFileGrid()
         {
@@ -31,27 +35,44 @@ namespace McSwiss
 
         private void btnAddSegment_Click(object sender, EventArgs e)
         { 
-            frmSegment segment_var = new frmSegment(this) { Dock = DockStyle.Top, TopLevel = false, TopMost = true };
-            segment_var.FormBorderStyle = FormBorderStyle.None;
-            frmList.Insert(0, segment_var);
-
-            // format filename
-            string fullFileName = Path.GetFileName(selectedFile);
-            int idx = fullFileName.LastIndexOf('.');
-            string fileName = fullFileName[..idx];
-            string segTitle = String.Format("{0}_{1}", fileName, frmList.Count().ToString());
-            string fileExt = fullFileName[(idx + 1)..];
-            string newFileName = String.Format("{0}.{1}", segTitle, fileExt);
-            string outputFile = Path.Join(outputPath, newFileName);
-
-            segment_var.SegmentTitle = segTitle;
-            this.pnlSegmentList.Controls.Clear();
-            this.pnlSegmentList.Controls.AddRange(frmList.ToArray());
-
-            foreach(frmSegment segment in frmList)
+            if(frmList.Count <= 26)
             {
-                segment.Show();
-            } 
+                frmSegment segment_var = new frmSegment(this) { Dock = DockStyle.Top, TopLevel = false, TopMost = true };
+                segment_var.FormBorderStyle = FormBorderStyle.None;
+                frmList.Insert(0, segment_var);
+
+                // format filename
+                string fullFileName = Path.GetFileName(selectedFile);
+                int idx = fullFileName.LastIndexOf('.');
+                string fileName = fullFileName[..idx];
+                string segTitle;
+                if (numbers)
+                {
+                    segTitle = String.Format("{0}_{1}", fileName, frmList.Count().ToString());
+                }
+                else
+                {
+                    segTitle = String.Format("{0}_{1}", fileName, alphabet[frmList.Count() - 1].ToString());
+                }
+
+                string fileExt = fullFileName[(idx + 1)..];
+                string newFileName = String.Format("{0}.{1}", segTitle, fileExt);
+                string outputFile = Path.Join(outputPath, newFileName);
+
+                segment_var.SegmentTitle = segTitle;
+                this.pnlSegmentList.Controls.Clear();
+                this.pnlSegmentList.Controls.AddRange(frmList.ToArray());
+
+                foreach (frmSegment segment in frmList)
+                {
+                    segment.Show();
+                }
+                
+                if (frmList.Count == 26)
+                {
+                    btnAddSegment.Enabled = false;
+                }
+            }
         }
 
         private void btnRemoveSegment_Click(object sender, EventArgs e)
@@ -61,6 +82,7 @@ namespace McSwiss
                 frmSegment lastSegment = frmList.First();
                 frmList.Remove(lastSegment);
                 this.pnlSegmentList.Controls.Remove(lastSegment);
+                btnAddSegment.Enabled = true;
             } 
             
         }
@@ -96,6 +118,11 @@ namespace McSwiss
             // Segment Generator code
             string command = @"-ss {0} -to {1} -i ""{2}"" -c copy ""{3}""";
 
+            if (numbers)
+            {
+
+            }
+
             foreach (frmSegment segment in frmList)
             {
                 // Create process for trimming the video
@@ -104,7 +131,7 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe";
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = false;
+                ffmpeg.StartInfo.CreateNoWindow = true;
 
                 // Formatting start time
                 int startTime = getTimeSeconds(segment.StartTime);
@@ -118,17 +145,47 @@ namespace McSwiss
 
                 string outputFile = Path.Join(outputPath, String.Format("{0}.{1}", segment.SegmentTitle, fileExt));
 
-                ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), selectedFile, outputFile);
-                ffmpeg.Start();
-                sgProgressBar.Value += 1;
-                lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count);
-                ffmpeg.WaitForExit();
+                // check if output file already exists
+                if (File.Exists(outputFile))
+                {
+                    // Error message
+                    string errorMessage = String.Format(@"The file {0} already exists, would you like to replace it?", outputFile);
+                    string errorTitle = "Error: File already exists";
+                    MessageBoxButtons b = MessageBoxButtons.YesNo;
+                    DialogResult r;
+                    r = MessageBox.Show(errorMessage, errorTitle, b);
+                    if (r == DialogResult.Yes)
+                    {
+                        // replace file
+                        File.Delete(outputFile);
+
+                        ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), selectedFile, outputFile);
+                        ffmpeg.Start();
+                        sgProgressBar.Value += 1;
+                        lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count);
+                        ffmpeg.WaitForExit();
+                        segmentsGenerated++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), selectedFile, outputFile);
+                    ffmpeg.Start();
+                    sgProgressBar.Value += 1;
+                    lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count);
+                    ffmpeg.WaitForExit();
+                    segmentsGenerated++;
+                }
             }
 
             lblProgressText.Text = "Complete.";
 
             // Success message
-            string message = String.Format(@"{0} segments have been generated and saved to {1}", frmList.Count, outputPath);
+            string message = String.Format(@"{0} segments have been generated and saved to {1}", segmentsGenerated, outputPath);
             string caption = "Success!";
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
@@ -151,7 +208,7 @@ namespace McSwiss
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-
+            segmentsGenerated = 0;
             bool formatedCorrectly = true;
             bool correctLength = true;
 
@@ -167,9 +224,10 @@ namespace McSwiss
                     break;
                 }
 
-                if (getTimeSeconds(segment.StartTime) < getTimeSeconds(segment.EndTime))
+                if (getTimeSeconds(segment.StartTime) > getTimeSeconds(segment.EndTime))
                 {
                     correctLength = false;
+                    Debug.Print(@"start: {0}    end: {1}", getTimeSeconds(segment.StartTime).ToString(), getTimeSeconds(segment.EndTime).ToString());
                     break;
                 }
             }

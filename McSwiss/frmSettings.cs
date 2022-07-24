@@ -117,5 +117,19 @@ namespace McSwiss
         {
             this.lblExample.Text = String.Format(@"eg. filename{0}.mp4", this.txtBoxSuffix.Text);
         }
+
+        private void rdioLetters_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rdioLetters.Checked)
+            {
+                lblLetterWarning.Show();
+                imgWarning.Show();
+            }
+            else
+            {
+                lblLetterWarning.Hide();
+                imgWarning.Hide();
+            }
+        }
     }
 }

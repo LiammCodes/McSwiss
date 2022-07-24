@@ -16,7 +16,7 @@ namespace McSwiss
     {
         private List<String> selectedFiles = null;
         private String outputPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
-
+        private int thumbnailsGenerated = 0;
         public frmTGFileGrid()
         {
             InitializeComponent();
@@ -103,7 +103,7 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = false;
+                ffmpeg.StartInfo.CreateNoWindow = true;
 
                 // Formatting preview filename
                 string fullFileName = Path.GetFileName(file);
@@ -112,17 +112,47 @@ namespace McSwiss
                 string newFileName = string.Format("{0}.jpg", fileName);
                 string outputFile = Path.Join(outputPath, newFileName);
 
-                ffmpeg.StartInfo.Arguments = string.Format(command, timestamp.ToString(), file, outputFile);
-                ffmpeg.Start();
-                tgProgressBar.Value += 1;
-                lblProgressText.Text = String.Format(@"Generating thumbnail {0}/{1}...", tgProgressBar.Value.ToString(), selectedFiles.Count);
-                ffmpeg.WaitForExit();
+                // check if output file already exists
+                if (File.Exists(outputFile))
+                {
+                    // Error message
+                    string errorMessage = String.Format(@"The file {0} already exists, would you like to replace it?", outputFile);
+                    string errorTitle = "Error: File already exists";
+                    MessageBoxButtons b = MessageBoxButtons.YesNo;
+                    DialogResult r;
+                    r = MessageBox.Show(errorMessage, errorTitle, b);
+                    if (r == DialogResult.Yes)
+                    {
+                        // replace file
+                        File.Delete(outputFile);
+
+                        ffmpeg.StartInfo.Arguments = string.Format(command, timestamp.ToString(), file, outputFile);
+                        ffmpeg.Start();
+                        tgProgressBar.Value += 1;
+                        lblProgressText.Text = String.Format(@"Generating thumbnail {0}/{1}...", tgProgressBar.Value.ToString(), selectedFiles.Count);
+                        ffmpeg.WaitForExit();
+                        thumbnailsGenerated++;
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                }
+                else
+                {
+                    ffmpeg.StartInfo.Arguments = string.Format(command, timestamp.ToString(), file, outputFile);
+                    ffmpeg.Start();
+                    tgProgressBar.Value += 1;
+                    lblProgressText.Text = String.Format(@"Generating thumbnail {0}/{1}...", tgProgressBar.Value.ToString(), selectedFiles.Count);
+                    ffmpeg.WaitForExit();
+                    thumbnailsGenerated++;
+                }
             }
 
             lblProgressText.Text = "Complete.";
 
             // Success message
-            string message = String.Format(@"{0} thumbnails have been generated and saved to {1}", selectedFiles.Count, outputPath);
+            string message = String.Format(@"{0} thumbnails have been generated and saved to {1}", thumbnailsGenerated, outputPath);
             string caption = "Success!";
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
@@ -145,7 +175,9 @@ namespace McSwiss
 
         private void btnRun_Click(object sender, EventArgs e)
         {
-            Debug.WriteLine(Application.ExecutablePath);
+
+            thumbnailsGenerated = 0;
+
             // Create regex pattern for timestamps
             string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
             Regex rg = new Regex(pattern);

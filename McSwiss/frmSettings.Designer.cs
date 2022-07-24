@@ -33,8 +33,10 @@
             this.lblPG = new System.Windows.Forms.Label();
             this.lblSG = new System.Windows.Forms.Label();
             this.lblAbout = new System.Windows.Forms.Label();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.label1 = new System.Windows.Forms.Label();
+            this.pnlAbout = new System.Windows.Forms.Panel();
+            this.btnUpdate = new System.Windows.Forms.Button();
+            this.lblAboutName = new System.Windows.Forms.Label();
+            this.lblProperty = new System.Windows.Forms.Label();
             this.lblDeveloped = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.lblVersionTitle = new System.Windows.Forms.Label();
@@ -48,8 +50,11 @@
             this.imgThumbsUp = new System.Windows.Forms.PictureBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.lblExample = new System.Windows.Forms.Label();
-            this.panel1.SuspendLayout();
+            this.imgWarning = new System.Windows.Forms.PictureBox();
+            this.lblLetterWarning = new System.Windows.Forms.Label();
+            this.pnlAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgThumbsUp)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgWarning)).BeginInit();
             this.SuspendLayout();
             // 
             // lblPG
@@ -86,36 +91,63 @@
             this.lblAbout.TabIndex = 4;
             this.lblAbout.Text = "About";
             // 
-            // panel1
+            // pnlAbout
             // 
-            this.panel1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.panel1.Controls.Add(this.label1);
-            this.panel1.Controls.Add(this.lblDeveloped);
-            this.panel1.Controls.Add(this.lblVersion);
-            this.panel1.Controls.Add(this.lblVersionTitle);
-            this.panel1.Location = new System.Drawing.Point(480, 72);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(245, 87);
-            this.panel1.TabIndex = 5;
+            this.pnlAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.pnlAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.pnlAbout.Controls.Add(this.btnUpdate);
+            this.pnlAbout.Controls.Add(this.lblAboutName);
+            this.pnlAbout.Controls.Add(this.lblProperty);
+            this.pnlAbout.Controls.Add(this.lblDeveloped);
+            this.pnlAbout.Controls.Add(this.lblVersion);
+            this.pnlAbout.Controls.Add(this.lblVersionTitle);
+            this.pnlAbout.Location = new System.Drawing.Point(480, 72);
+            this.pnlAbout.Name = "pnlAbout";
+            this.pnlAbout.Size = new System.Drawing.Size(245, 121);
+            this.pnlAbout.TabIndex = 5;
             // 
-            // label1
+            // btnUpdate
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.label1.ForeColor = System.Drawing.Color.LightGray;
-            this.label1.Location = new System.Drawing.Point(7, 59);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(192, 17);
-            this.label1.TabIndex = 9;
-            this.label1.Text = "Property of McIntyre Media Inc.";
+            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
+            this.btnUpdate.FlatAppearance.BorderSize = 0;
+            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnUpdate.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnUpdate.ForeColor = System.Drawing.Color.White;
+            this.btnUpdate.Location = new System.Drawing.Point(106, 32);
+            this.btnUpdate.Name = "btnUpdate";
+            this.btnUpdate.Size = new System.Drawing.Size(124, 24);
+            this.btnUpdate.TabIndex = 21;
+            this.btnUpdate.Text = "Update";
+            this.btnUpdate.UseVisualStyleBackColor = false;
+            // 
+            // lblAboutName
+            // 
+            this.lblAboutName.AutoSize = true;
+            this.lblAboutName.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAboutName.ForeColor = System.Drawing.Color.LightGray;
+            this.lblAboutName.Location = new System.Drawing.Point(6, 9);
+            this.lblAboutName.Name = "lblAboutName";
+            this.lblAboutName.Size = new System.Drawing.Size(169, 17);
+            this.lblAboutName.TabIndex = 10;
+            this.lblAboutName.Text = "McIntyre Swiss Army Knife";
+            // 
+            // lblProperty
+            // 
+            this.lblProperty.AutoSize = true;
+            this.lblProperty.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lblProperty.ForeColor = System.Drawing.Color.LightGray;
+            this.lblProperty.Location = new System.Drawing.Point(6, 92);
+            this.lblProperty.Name = "lblProperty";
+            this.lblProperty.Size = new System.Drawing.Size(192, 17);
+            this.lblProperty.TabIndex = 9;
+            this.lblProperty.Text = "Property of McIntyre Media Inc.";
             // 
             // lblDeveloped
             // 
             this.lblDeveloped.AutoSize = true;
             this.lblDeveloped.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblDeveloped.ForeColor = System.Drawing.Color.LightGray;
-            this.lblDeveloped.Location = new System.Drawing.Point(7, 42);
+            this.lblDeveloped.Location = new System.Drawing.Point(6, 75);
             this.lblDeveloped.Name = "lblDeveloped";
             this.lblDeveloped.Size = new System.Drawing.Size(164, 17);
             this.lblDeveloped.TabIndex = 8;
@@ -126,7 +158,7 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblVersion.ForeColor = System.Drawing.Color.LightGray;
-            this.lblVersion.Location = new System.Drawing.Point(68, 8);
+            this.lblVersion.Location = new System.Drawing.Point(59, 35);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(33, 17);
             this.lblVersion.TabIndex = 7;
@@ -137,7 +169,7 @@
             this.lblVersionTitle.AutoSize = true;
             this.lblVersionTitle.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblVersionTitle.ForeColor = System.Drawing.Color.LightGray;
-            this.lblVersionTitle.Location = new System.Drawing.Point(7, 8);
+            this.lblVersionTitle.Location = new System.Drawing.Point(6, 35);
             this.lblVersionTitle.Name = "lblVersionTitle";
             this.lblVersionTitle.Size = new System.Drawing.Size(55, 17);
             this.lblVersionTitle.TabIndex = 6;
@@ -190,6 +222,7 @@
             this.rdioLetters.TabStop = true;
             this.rdioLetters.Text = "Letters";
             this.rdioLetters.UseVisualStyleBackColor = true;
+            this.rdioLetters.CheckedChanged += new System.EventHandler(this.rdioLetters_CheckedChanged);
             // 
             // txtBoxSuffix
             // 
@@ -207,7 +240,7 @@
             this.btnApply.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnApply.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnApply.ForeColor = System.Drawing.Color.White;
-            this.btnApply.Location = new System.Drawing.Point(34, 413);
+            this.btnApply.Location = new System.Drawing.Point(34, 410);
             this.btnApply.Name = "btnApply";
             this.btnApply.Size = new System.Drawing.Size(100, 35);
             this.btnApply.TabIndex = 15;
@@ -220,7 +253,7 @@
             this.lblSaved.AutoSize = true;
             this.lblSaved.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblSaved.ForeColor = System.Drawing.Color.LightGray;
-            this.lblSaved.Location = new System.Drawing.Point(149, 422);
+            this.lblSaved.Location = new System.Drawing.Point(149, 419);
             this.lblSaved.Name = "lblSaved";
             this.lblSaved.Size = new System.Drawing.Size(194, 17);
             this.lblSaved.TabIndex = 16;
@@ -230,9 +263,9 @@
             // imgThumbsUp
             // 
             this.imgThumbsUp.Image = ((System.Drawing.Image)(resources.GetObject("imgThumbsUp.Image")));
-            this.imgThumbsUp.Location = new System.Drawing.Point(348, 415);
+            this.imgThumbsUp.Location = new System.Drawing.Point(346, 417);
             this.imgThumbsUp.Name = "imgThumbsUp";
-            this.imgThumbsUp.Size = new System.Drawing.Size(21, 26);
+            this.imgThumbsUp.Size = new System.Drawing.Size(17, 19);
             this.imgThumbsUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.imgThumbsUp.TabIndex = 17;
             this.imgThumbsUp.TabStop = false;
@@ -253,12 +286,37 @@
             this.lblExample.TabIndex = 18;
             this.lblExample.Text = "eg. filename Prev.mp4";
             // 
+            // imgWarning
+            // 
+            this.imgWarning.Image = ((System.Drawing.Image)(resources.GetObject("imgWarning.Image")));
+            this.imgWarning.Location = new System.Drawing.Point(35, 339);
+            this.imgWarning.Name = "imgWarning";
+            this.imgWarning.Size = new System.Drawing.Size(18, 19);
+            this.imgWarning.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgWarning.TabIndex = 20;
+            this.imgWarning.TabStop = false;
+            this.imgWarning.Visible = false;
+            // 
+            // lblLetterWarning
+            // 
+            this.lblLetterWarning.AutoSize = true;
+            this.lblLetterWarning.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblLetterWarning.ForeColor = System.Drawing.Color.PaleGoldenrod;
+            this.lblLetterWarning.Location = new System.Drawing.Point(59, 341);
+            this.lblLetterWarning.Name = "lblLetterWarning";
+            this.lblLetterWarning.Size = new System.Drawing.Size(330, 17);
+            this.lblLetterWarning.TabIndex = 19;
+            this.lblLetterWarning.Text = "With letter suffixes, you may only make 26 segments";
+            this.lblLetterWarning.Visible = false;
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
+            this.Controls.Add(this.imgWarning);
+            this.Controls.Add(this.lblLetterWarning);
             this.Controls.Add(this.lblExample);
             this.Controls.Add(this.imgThumbsUp);
             this.Controls.Add(this.lblSaved);
@@ -268,7 +326,7 @@
             this.Controls.Add(this.rdioNumbers);
             this.Controls.Add(this.lblSegSuffix);
             this.Controls.Add(this.lblPrevSuffix);
-            this.Controls.Add(this.panel1);
+            this.Controls.Add(this.pnlAbout);
             this.Controls.Add(this.lblAbout);
             this.Controls.Add(this.lblSG);
             this.Controls.Add(this.lblPG);
@@ -277,9 +335,10 @@
             this.MinimumSize = new System.Drawing.Size(765, 487);
             this.Name = "frmSettings";
             this.Text = "frmSettings";
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
+            this.pnlAbout.ResumeLayout(false);
+            this.pnlAbout.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgThumbsUp)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.imgWarning)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -290,11 +349,11 @@
         private Label lblPG;
         private Label lblSG;
         private Label lblAbout;
-        private Panel panel1;
+        private Panel pnlAbout;
         private Label lblVersion;
         private Label lblVersionTitle;
         private Label lblDeveloped;
-        private Label label1;
+        private Label lblProperty;
         private Label lblPrevSuffix;
         private Label lblSegSuffix;
         private RadioButton rdioNumbers;
@@ -305,5 +364,9 @@
         private PictureBox imgThumbsUp;
         private System.Windows.Forms.Timer timer1;
         private Label lblExample;
+        private PictureBox imgWarning;
+        private Label lblLetterWarning;
+        private Button btnUpdate;
+        private Label lblAboutName;
     }
 }

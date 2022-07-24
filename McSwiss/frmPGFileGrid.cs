@@ -114,7 +114,7 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = false;
+                ffmpeg.StartInfo.CreateNoWindow = true;
 
                 // Formatting preview filename
                 string fullFileName = Path.GetFileName(file);
@@ -187,6 +187,9 @@ namespace McSwiss
 
         private void btnRun_Click(object sender, EventArgs e)
         {
+
+            previewsGenerated = 0;
+
             // Create regex pattern for timestamps
             string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
             Regex rg = new Regex(pattern);
