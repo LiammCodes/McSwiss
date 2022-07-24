@@ -254,17 +254,21 @@
             this.lblSaved.AutoSize = true;
             this.lblSaved.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblSaved.ForeColor = System.Drawing.Color.LightGray;
-            this.lblSaved.Location = new System.Drawing.Point(149, 419);
+            this.lblSaved.ImageAlign = System.Drawing.ContentAlignment.TopLeft;
+            this.lblSaved.Location = new System.Drawing.Point(169, 419);
             this.lblSaved.Name = "lblSaved";
             this.lblSaved.Size = new System.Drawing.Size(194, 17);
             this.lblSaved.TabIndex = 16;
             this.lblSaved.Text = "Your settings have been saved";
+            this.lblSaved.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.lblSaved.Visible = false;
             // 
             // imgThumbsUp
             // 
             this.imgThumbsUp.Image = ((System.Drawing.Image)(resources.GetObject("imgThumbsUp.Image")));
-            this.imgThumbsUp.Location = new System.Drawing.Point(346, 417);
+            this.imgThumbsUp.Location = new System.Drawing.Point(146, 417);
+            this.imgThumbsUp.MaximumSize = new System.Drawing.Size(17, 19);
+            this.imgThumbsUp.MinimumSize = new System.Drawing.Size(17, 19);
             this.imgThumbsUp.Name = "imgThumbsUp";
             this.imgThumbsUp.Size = new System.Drawing.Size(17, 19);
             this.imgThumbsUp.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
