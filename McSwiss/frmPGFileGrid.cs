@@ -110,9 +110,9 @@ namespace McSwiss
             {
                 // Create process for trimming the video
                 Process ffmpeg = new Process();
-                ffmpeg.StartInfo.RedirectStandardOutput = true;
+                ffmpeg.StartInfo.RedirectStandardOutput = false;
                 ffmpeg.StartInfo.RedirectStandardError = false;
-                ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
+                ffmpeg.StartInfo.FileName = "ffmpeg.exe";
                 ffmpeg.StartInfo.UseShellExecute = false;
                 ffmpeg.StartInfo.CreateNoWindow = true;
 

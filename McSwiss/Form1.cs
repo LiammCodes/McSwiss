@@ -36,14 +36,8 @@ namespace McSwiss
             return this.pnlFormLoader;
         }
 
-        //public void getSettings()
-        //{
-         //   string PGSuffix = Properties.settings.Default.PGSuffix;
-         //   bool SGNumbers = Properties.settings.Default.SGNumbers;
-        //}
-
         private void Form1_Load(object sender, EventArgs e) {
-
+        
         }
 
         private void pnlMover_MouseMove(object sender, MouseEventArgs e)
@@ -123,6 +117,7 @@ namespace McSwiss
             FrmSettings_Var.PreviewSuffix = Properties.settings.Default.PGSuffix;
             FrmSettings_Var.SegmentNumbers = Properties.settings.Default.SGNumbers;
             FrmSettings_Var.SegmentLetters = Properties.settings.Default.SGLetters;
+            FrmSettings_Var.Version = Application.ProductVersion;
 
             FrmSettings_Var.Show();
         }

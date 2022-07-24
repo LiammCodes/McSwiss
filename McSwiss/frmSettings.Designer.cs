@@ -119,6 +119,7 @@
             this.btnUpdate.TabIndex = 21;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = false;
+            this.btnUpdate.Visible = false;
             // 
             // lblAboutName
             // 
@@ -162,7 +163,7 @@
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(33, 17);
             this.lblVersion.TabIndex = 7;
-            this.lblVersion.Text = "1.0.0";
+            this.lblVersion.Text = "1.0.5";
             // 
             // lblVersionTitle
             // 

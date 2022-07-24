@@ -32,7 +32,7 @@ namespace McSwiss
         private void frmSettings_Load(object sender, EventArgs e)
         {
             this.txtBoxSuffix.Text = settings.Default.PGSuffix.ToString();
-
+            
             if (settings.Default.SGNumbers)
             {
                 this.rdioNumbers.Checked = true;
@@ -42,6 +42,14 @@ namespace McSwiss
                 this.rdioLetters.Checked = true;
             }
 
+        }
+
+        public string Version
+        {
+            set
+            {
+                this.lblVersion.Text = value;
+            }
         }
 
         public string PreviewSuffix
@@ -100,6 +108,7 @@ namespace McSwiss
             settings.Default.Save();
             this.imgThumbsUp.Show();
             this.lblSaved.Show();
+            
         }
 
         private void timer1_Tick(object sender, EventArgs e)
