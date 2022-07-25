@@ -224,7 +224,7 @@ namespace McSwiss
                     break;
                 }
 
-                if (getTimeSeconds(segment.StartTime) > getTimeSeconds(segment.EndTime))
+                if (getTimeSeconds(segment.StartTime) >= getTimeSeconds(segment.EndTime))
                 {
                     correctLength = false;
                     Debug.Print(@"start: {0}    end: {1}", getTimeSeconds(segment.StartTime).ToString(), getTimeSeconds(segment.EndTime).ToString());
