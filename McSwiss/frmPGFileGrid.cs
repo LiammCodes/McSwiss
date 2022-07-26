@@ -104,7 +104,12 @@ namespace McSwiss
             // Formatting start time
             int startTime = getTimeSeconds(txtboxStart.Text);
             int endTime = getTimeSeconds(txtboxEnd.Text);
-            string command = @"-ss {0} -to {1} -i ""{2}"" -c copy ""{3}""";
+
+            // {0}: input
+            // {1}: start time
+            // {2}: end time
+            // {3}: output
+            string command = @"-i ""{0}"" -ss {1} -t {2} -async 1 ""{3}""";
 
             foreach (String file in selectedFiles)
             {
@@ -114,7 +119,7 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe";
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = true;
+                ffmpeg.StartInfo.CreateNoWindow = false;
 
                 // Formatting preview filename
                 string fullFileName = Path.GetFileName(file);
@@ -138,7 +143,7 @@ namespace McSwiss
                         // replace file
                         File.Delete(outputFile);
 
-                        ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
+                        ffmpeg.StartInfo.Arguments = string.Format(command, file, startTime.ToString(), endTime.ToString(), outputFile);
                         ffmpeg.Start();
                         pgProgressBar.Value += 1;
                         lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
@@ -151,7 +156,7 @@ namespace McSwiss
                     }
                 } else
                 {
-                    ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), file, outputFile);
+                    ffmpeg.StartInfo.Arguments = string.Format(command, file, startTime.ToString(), endTime.ToString(), outputFile);
                     ffmpeg.Start();
                     pgProgressBar.Value += 1;
                     lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
