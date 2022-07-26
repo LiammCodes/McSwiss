@@ -37,7 +37,13 @@ namespace McSwiss
         }
 
         private void Form1_Load(object sender, EventArgs e) {
-        
+            // NEW
+            string tempExeName = Path.Combine(Directory.GetCurrentDirectory(), "ffmpeg.exe");
+            using (FileStream fsDst = new FileStream(tempExeName, FileMode.CreateNew, FileAccess.Write))
+            {
+                byte[] bytes = Resource1.GetFFMpeg();
+                fsDst.Write(bytes, 0, bytes.Length);
+            }
         }
 
         private void pnlMover_MouseMove(object sender, MouseEventArgs e)

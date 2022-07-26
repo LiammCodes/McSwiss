@@ -113,6 +113,14 @@ namespace McSwiss
 
             foreach (String file in selectedFiles)
             {
+                // NEW
+                //string tempExeName = Path.Combine(Directory.GetCurrentDirectory(), "ffmpeg.exe");
+                //using (FileStream fsDst = new FileStream(tempExeName, FileMode.CreateNew, FileAccess.Write))
+                //{
+                //    byte[] bytes = Resource1.GetFFMpeg();
+                //    fsDst.Write(bytes, 0, bytes.Length);
+                //}
+
                 // Create process for trimming the video
                 Process ffmpeg = new Process();
                 ffmpeg.StartInfo.RedirectStandardOutput = false;
