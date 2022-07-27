@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPGFileGrid));
             this.lstFileGrid = new System.Windows.Forms.ListView();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.btnRun = new System.Windows.Forms.Button();
@@ -41,6 +42,9 @@
             this.btnSelectOutput = new System.Windows.Forms.Button();
             this.pgProgressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressText = new System.Windows.Forms.Label();
+            this.imgLoading = new System.Windows.Forms.PictureBox();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
             this.SuspendLayout();
             // 
             // lstFileGrid
@@ -183,13 +187,30 @@
             this.lblProgressText.AutoEllipsis = true;
             this.lblProgressText.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblProgressText.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lblProgressText.Location = new System.Drawing.Point(562, 454);
+            this.lblProgressText.Location = new System.Drawing.Point(529, 455);
             this.lblProgressText.Name = "lblProgressText";
             this.lblProgressText.Size = new System.Drawing.Size(191, 16);
             this.lblProgressText.TabIndex = 9;
             this.lblProgressText.Text = "Generating preview x/n...";
             this.lblProgressText.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblProgressText.Visible = false;
+            // 
+            // imgLoading
+            // 
+            this.imgLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgLoading.Image = ((System.Drawing.Image)(resources.GetObject("imgLoading.Image")));
+            this.imgLoading.Location = new System.Drawing.Point(726, 453);
+            this.imgLoading.Name = "imgLoading";
+            this.imgLoading.Size = new System.Drawing.Size(22, 22);
+            this.imgLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgLoading.TabIndex = 10;
+            this.imgLoading.TabStop = false;
+            this.imgLoading.Visible = false;
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // frmPGFileGrid
             // 
@@ -198,6 +219,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
+            this.Controls.Add(this.lblProgressText);
+            this.Controls.Add(this.imgLoading);
             this.Controls.Add(this.btnSelectOutput);
             this.Controls.Add(this.lblOutputPath);
             this.Controls.Add(this.lblOutput);
@@ -208,12 +231,12 @@
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.lstFileGrid);
             this.Controls.Add(this.pgProgressBar);
-            this.Controls.Add(this.lblProgressText);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmPGFileGrid";
             this.Text = "frmFileGrid";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragDrop);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragOver);
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -233,5 +256,7 @@
         private Button btnSelectOutput;
         private ProgressBar pgProgressBar;
         private Label lblProgressText;
+        private PictureBox imgLoading;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

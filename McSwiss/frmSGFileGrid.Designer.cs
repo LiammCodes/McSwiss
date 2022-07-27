@@ -29,7 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmSGFileGrid));
             this.pnlGenButton = new System.Windows.Forms.Panel();
+            this.imgLoading = new System.Windows.Forms.PictureBox();
             this.lblProgressText = new System.Windows.Forms.Label();
             this.sgProgressBar = new System.Windows.Forms.ProgressBar();
             this.btnSelectOutput = new System.Windows.Forms.Button();
@@ -42,12 +44,15 @@
             this.lstFileGrid = new System.Windows.Forms.ListView();
             this.pnlSegmentList = new System.Windows.Forms.Panel();
             this.panel1 = new System.Windows.Forms.Panel();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pnlGenButton.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlGenButton
             // 
+            this.pnlGenButton.Controls.Add(this.imgLoading);
             this.pnlGenButton.Controls.Add(this.lblProgressText);
             this.pnlGenButton.Controls.Add(this.sgProgressBar);
             this.pnlGenButton.Controls.Add(this.btnSelectOutput);
@@ -60,13 +65,25 @@
             this.pnlGenButton.Size = new System.Drawing.Size(765, 68);
             this.pnlGenButton.TabIndex = 0;
             // 
+            // imgLoading
+            // 
+            this.imgLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.imgLoading.Image = ((System.Drawing.Image)(resources.GetObject("imgLoading.Image")));
+            this.imgLoading.Location = new System.Drawing.Point(731, 37);
+            this.imgLoading.Name = "imgLoading";
+            this.imgLoading.Size = new System.Drawing.Size(22, 22);
+            this.imgLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.imgLoading.TabIndex = 13;
+            this.imgLoading.TabStop = false;
+            this.imgLoading.Visible = false;
+            // 
             // lblProgressText
             // 
             this.lblProgressText.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.lblProgressText.AutoEllipsis = true;
             this.lblProgressText.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblProgressText.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lblProgressText.Location = new System.Drawing.Point(562, 40);
+            this.lblProgressText.Location = new System.Drawing.Point(534, 40);
             this.lblProgressText.Name = "lblProgressText";
             this.lblProgressText.Size = new System.Drawing.Size(191, 16);
             this.lblProgressText.TabIndex = 12;
@@ -214,6 +231,11 @@
             this.panel1.Size = new System.Drawing.Size(219, 36);
             this.panel1.TabIndex = 6;
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
             // frmSGFileGrid
             // 
             this.AllowDrop = true;
@@ -232,6 +254,7 @@
             this.Text = "frmSGFileGrid";
             this.pnlGenButton.ResumeLayout(false);
             this.pnlGenButton.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).EndInit();
             this.panel1.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -252,5 +275,7 @@
         private Label lblOutput;
         private Label lblProgressText;
         private ProgressBar sgProgressBar;
+        private PictureBox imgLoading;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
     }
 }

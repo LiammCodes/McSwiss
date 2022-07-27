@@ -44,7 +44,7 @@
             this.btnPGFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnPGFiles.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnPGFiles.ForeColor = System.Drawing.Color.Silver;
-            this.btnPGFiles.Location = new System.Drawing.Point(332, 310);
+            this.btnPGFiles.Location = new System.Drawing.Point(333, 310);
             this.btnPGFiles.Name = "btnPGFiles";
             this.btnPGFiles.Size = new System.Drawing.Size(100, 35);
             this.btnPGFiles.TabIndex = 0;

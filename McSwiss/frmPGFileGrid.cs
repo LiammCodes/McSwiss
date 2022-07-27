@@ -93,12 +93,6 @@ namespace McSwiss
         {
             frmSettings settings = new frmSettings();
 
-            pgProgressBar.Minimum = 0;
-            pgProgressBar.Maximum = selectedFiles.Count;
-            btnRun.Visible = false;
-            pgProgressBar.Visible = true;
-            lblProgressText.Visible = true;
-
             // Preview Generator code
 
             // Formatting start time
@@ -109,17 +103,10 @@ namespace McSwiss
             // {1}: start time
             // {2}: end time
             // {3}: output
-            string command = @"-i ""{0}"" -ss {1} -t {2} -async 1 ""{3}""";
+            string command = @"-i ""{0}"" -ss {1} -to {2} -async 1 ""{3}""";
 
             foreach (String file in selectedFiles)
             {
-                // NEW
-                //string tempExeName = Path.Combine(Directory.GetCurrentDirectory(), "ffmpeg.exe");
-                //using (FileStream fsDst = new FileStream(tempExeName, FileMode.CreateNew, FileAccess.Write))
-                //{
-                //    byte[] bytes = Resource1.GetFFMpeg();
-                //    fsDst.Write(bytes, 0, bytes.Length);
-                //}
 
                 // Create process for trimming the video
                 Process ffmpeg = new Process();
@@ -127,7 +114,7 @@ namespace McSwiss
                 ffmpeg.StartInfo.RedirectStandardError = false;
                 ffmpeg.StartInfo.FileName = "ffmpeg.exe";
                 ffmpeg.StartInfo.UseShellExecute = false;
-                ffmpeg.StartInfo.CreateNoWindow = false;
+                ffmpeg.StartInfo.CreateNoWindow = true;
 
                 // Formatting preview filename
                 string fullFileName = Path.GetFileName(file);
@@ -140,7 +127,7 @@ namespace McSwiss
                 // check if output file already exists
                 if (File.Exists(outputFile))
                 {
-                    // Success message
+                    // error message
                     string errorMessage = String.Format(@"The file {0} already exists, would you like to replace it?", outputFile);
                     string errorTitle = "Error: File already exists";
                     MessageBoxButtons b = MessageBoxButtons.YesNo;
@@ -153,10 +140,11 @@ namespace McSwiss
 
                         ffmpeg.StartInfo.Arguments = string.Format(command, file, startTime.ToString(), endTime.ToString(), outputFile);
                         ffmpeg.Start();
-                        pgProgressBar.Value += 1;
-                        lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
+                        pgProgressBar.Invoke((MethodInvoker)(() => pgProgressBar.Value += 1));
+                        lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count)));
                         ffmpeg.WaitForExit();
                         previewsGenerated++;
+
                     }
                     else
                     {
@@ -166,15 +154,16 @@ namespace McSwiss
                 {
                     ffmpeg.StartInfo.Arguments = string.Format(command, file, startTime.ToString(), endTime.ToString(), outputFile);
                     ffmpeg.Start();
-                    pgProgressBar.Value += 1;
-                    lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count);
+                    pgProgressBar.Invoke((MethodInvoker)(() => pgProgressBar.Value += 1));
+                    lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count)));
                     ffmpeg.WaitForExit();
                     previewsGenerated++;
                 }
 
             }
 
-            lblProgressText.Text = "Complete.";
+            lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = "Complete."));
+            imgLoading.Invoke((MethodInvoker)(() => imgLoading.Visible = false));
 
             // Success message
             string message = String.Format(@"{0} previews have been generated and saved to {1}", previewsGenerated, outputPath);
@@ -182,20 +171,6 @@ namespace McSwiss
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
             result = MessageBox.Show(message, caption, buttons);
-            if (result == DialogResult.OK)
-            {
-                pgProgressBar.Visible = false;
-                pgProgressBar.Value = 0;
-                lblProgressText.Visible = false;
-                btnRun.Visible = true;
-            }
-            else
-            {
-                pgProgressBar.Visible = false;
-                pgProgressBar.Value = 0;
-                lblProgressText.Visible = false;
-                btnRun.Visible = true;
-            }
         }
 
         private void btnRun_Click(object sender, EventArgs e)
@@ -229,8 +204,15 @@ namespace McSwiss
                 result = MessageBox.Show(message, caption, buttons);
             }
             else
-            {  
-                generatePreviews();
+            {
+                pgProgressBar.Minimum = 0;
+                pgProgressBar.Maximum = selectedFiles.Count;
+                btnRun.Visible = false;
+                pgProgressBar.Visible = true;
+                lblProgressText.Visible = true;
+                imgLoading.Visible = true;
+
+                backgroundWorker1.RunWorkerAsync();
             }
         }
 
@@ -239,7 +221,6 @@ namespace McSwiss
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
-
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     outputPath = fbd.SelectedPath;
@@ -248,5 +229,17 @@ namespace McSwiss
             }
         }
 
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            generatePreviews();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pgProgressBar.Visible = false;
+            pgProgressBar.Value = 0;
+            lblProgressText.Visible = false;
+            btnRun.Visible = true;
+        }
     }
 }

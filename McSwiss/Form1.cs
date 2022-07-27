@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace McSwiss
 {
@@ -38,12 +39,16 @@ namespace McSwiss
 
         private void Form1_Load(object sender, EventArgs e) {
             // NEW
-            string tempExeName = Path.Combine(Directory.GetCurrentDirectory(), "ffmpeg.exe");
-            using (FileStream fsDst = new FileStream(tempExeName, FileMode.CreateNew, FileAccess.Write))
+            if (!File.Exists("ffmpeg.exe"))
             {
-                byte[] bytes = Resource1.GetFFMpeg();
-                fsDst.Write(bytes, 0, bytes.Length);
+                string tempExeName = Path.Combine(Directory.GetCurrentDirectory(), "ffmpeg.exe");
+                using (FileStream fsDst = new FileStream(tempExeName, FileMode.CreateNew, FileAccess.Write))
+                {
+                    byte[] bytes = Resource1.GetFFMpeg();
+                    fsDst.Write(bytes, 0, bytes.Length);
+                }
             }
+
         }
 
         private void pnlMover_MouseMove(object sender, MouseEventArgs e)
@@ -106,7 +111,6 @@ namespace McSwiss
             FrmThumbnailGen_Var.Show();
         }
 
-
         private void btnSettings_Click(object sender, EventArgs e)
         {
             lblTitle.Text = "Settings";
@@ -123,9 +127,11 @@ namespace McSwiss
             FrmSettings_Var.PreviewSuffix = Properties.settings.Default.PGSuffix;
             FrmSettings_Var.SegmentNumbers = Properties.settings.Default.SGNumbers;
             FrmSettings_Var.SegmentLetters = Properties.settings.Default.SGLetters;
-            FrmSettings_Var.Version = Application.ProductVersion;
 
+            FrmSettings_Var.Version = String.Format(@"Version: {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             FrmSettings_Var.Show();
+
+
         }
 
         private void btnPreviewGen_Leave(object sender, EventArgs e)

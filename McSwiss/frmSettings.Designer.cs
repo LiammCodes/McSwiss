@@ -34,12 +34,10 @@
             this.lblSG = new System.Windows.Forms.Label();
             this.lblAbout = new System.Windows.Forms.Label();
             this.pnlAbout = new System.Windows.Forms.Panel();
-            this.btnUpdate = new System.Windows.Forms.Button();
             this.lblAboutName = new System.Windows.Forms.Label();
             this.lblProperty = new System.Windows.Forms.Label();
             this.lblDeveloped = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
-            this.lblVersionTitle = new System.Windows.Forms.Label();
             this.lblPrevSuffix = new System.Windows.Forms.Label();
             this.lblSegSuffix = new System.Windows.Forms.Label();
             this.rdioNumbers = new System.Windows.Forms.RadioButton();
@@ -95,31 +93,14 @@
             // 
             this.pnlAbout.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlAbout.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.pnlAbout.Controls.Add(this.btnUpdate);
             this.pnlAbout.Controls.Add(this.lblAboutName);
             this.pnlAbout.Controls.Add(this.lblProperty);
             this.pnlAbout.Controls.Add(this.lblDeveloped);
             this.pnlAbout.Controls.Add(this.lblVersion);
-            this.pnlAbout.Controls.Add(this.lblVersionTitle);
             this.pnlAbout.Location = new System.Drawing.Point(480, 72);
             this.pnlAbout.Name = "pnlAbout";
             this.pnlAbout.Size = new System.Drawing.Size(245, 121);
             this.pnlAbout.TabIndex = 5;
-            // 
-            // btnUpdate
-            // 
-            this.btnUpdate.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
-            this.btnUpdate.FlatAppearance.BorderSize = 0;
-            this.btnUpdate.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btnUpdate.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnUpdate.ForeColor = System.Drawing.Color.White;
-            this.btnUpdate.Location = new System.Drawing.Point(106, 32);
-            this.btnUpdate.Name = "btnUpdate";
-            this.btnUpdate.Size = new System.Drawing.Size(124, 24);
-            this.btnUpdate.TabIndex = 21;
-            this.btnUpdate.Text = "Update";
-            this.btnUpdate.UseVisualStyleBackColor = false;
-            this.btnUpdate.Visible = false;
             // 
             // lblAboutName
             // 
@@ -159,22 +140,11 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblVersion.ForeColor = System.Drawing.Color.LightGray;
-            this.lblVersion.Location = new System.Drawing.Point(59, 35);
+            this.lblVersion.Location = new System.Drawing.Point(6, 40);
             this.lblVersion.Name = "lblVersion";
-            this.lblVersion.Size = new System.Drawing.Size(33, 17);
+            this.lblVersion.Size = new System.Drawing.Size(93, 17);
             this.lblVersion.TabIndex = 7;
-            this.lblVersion.Text = "1.0.5";
-            // 
-            // lblVersionTitle
-            // 
-            this.lblVersionTitle.AutoSize = true;
-            this.lblVersionTitle.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblVersionTitle.ForeColor = System.Drawing.Color.LightGray;
-            this.lblVersionTitle.Location = new System.Drawing.Point(6, 35);
-            this.lblVersionTitle.Name = "lblVersionTitle";
-            this.lblVersionTitle.Size = new System.Drawing.Size(55, 17);
-            this.lblVersionTitle.TabIndex = 6;
-            this.lblVersionTitle.Text = "Version:";
+            this.lblVersion.Text = "Version: 1.0.0.0";
             // 
             // lblPrevSuffix
             // 
@@ -356,7 +326,6 @@
         private Label lblAbout;
         private Panel pnlAbout;
         private Label lblVersion;
-        private Label lblVersionTitle;
         private Label lblDeveloped;
         private Label lblProperty;
         private Label lblPrevSuffix;
@@ -371,7 +340,6 @@
         private Label lblExample;
         private PictureBox imgWarning;
         private Label lblLetterWarning;
-        private Button btnUpdate;
         private Label lblAboutName;
     }
 }

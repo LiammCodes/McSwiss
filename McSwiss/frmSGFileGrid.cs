@@ -109,19 +109,12 @@ namespace McSwiss
 
         public void generateSegments()
         {
-            sgProgressBar.Minimum = 0;
-            sgProgressBar.Maximum = frmList.Count;
-            btnRun.Visible = false;
-            sgProgressBar.Visible = true;
-            lblProgressText.Visible = true;
-
             // Segment Generator code
-            string command = @"-ss {0} -to {1} -i ""{2}"" -c copy ""{3}""";
-
-            if (numbers)
-            {
-
-            }
+            // {0}: input
+            // {1}: start time
+            // {2}: end time
+            // {3}: output
+            string command = @"-i ""{0}"" -ss {1} -to {2} -async 1 ""{3}""";
 
             foreach (frmSegment segment in frmList)
             {
@@ -159,12 +152,13 @@ namespace McSwiss
                         // replace file
                         File.Delete(outputFile);
 
-                        ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), selectedFile, outputFile);
+                        ffmpeg.StartInfo.Arguments = string.Format(command, selectedFile, startTime.ToString(), endTime.ToString(), outputFile);
                         ffmpeg.Start();
-                        sgProgressBar.Value += 1;
-                        lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count);
+                        sgProgressBar.Invoke((MethodInvoker)(() => sgProgressBar.Value += 1));
+                        lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count)));
                         ffmpeg.WaitForExit();
                         segmentsGenerated++;
+
                     }
                     else
                     {
@@ -173,16 +167,17 @@ namespace McSwiss
                 }
                 else
                 {
-                    ffmpeg.StartInfo.Arguments = string.Format(command, startTime.ToString(), endTime.ToString(), selectedFile, outputFile);
+                    ffmpeg.StartInfo.Arguments = string.Format(command, selectedFile, startTime.ToString(), endTime.ToString(), outputFile);
                     ffmpeg.Start();
-                    sgProgressBar.Value += 1;
-                    lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count);
+                    sgProgressBar.Invoke((MethodInvoker)(() => sgProgressBar.Value += 1));
+                    lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating segment {0}/{1}...", sgProgressBar.Value.ToString(), frmList.Count)));
                     ffmpeg.WaitForExit();
                     segmentsGenerated++;
                 }
             }
 
-            lblProgressText.Text = "Complete.";
+            lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = "Complete."));
+            imgLoading.Invoke((MethodInvoker)(() => imgLoading.Visible = false));
 
             // Success message
             string message = String.Format(@"{0} segments have been generated and saved to {1}", segmentsGenerated, outputPath);
@@ -190,20 +185,7 @@ namespace McSwiss
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
             result = MessageBox.Show(message, caption, buttons);
-            if (result == DialogResult.OK)
-            {
-                sgProgressBar.Visible = false;
-                sgProgressBar.Value = 0;
-                lblProgressText.Visible = false;
-                btnRun.Visible = true;
-            }
-            else
-            {
-                sgProgressBar.Visible = false;
-                sgProgressBar.Value = 0;
-                lblProgressText.Visible = false;
-                btnRun.Visible = true;
-            }
+
         }
 
         private void btnRun_Click(object sender, EventArgs e)
@@ -252,11 +234,17 @@ namespace McSwiss
             } 
             else
             {
-                generateSegments();
+                sgProgressBar.Minimum = 0;
+                sgProgressBar.Maximum = frmList.Count;
+                btnRun.Visible = false;
+                sgProgressBar.Visible = true;
+                lblProgressText.Visible = true;
+                imgLoading.Visible = true;
+
+                backgroundWorker1.RunWorkerAsync();
             }
             
         }
-
         private void btnSelectOutput_Click(object sender, EventArgs e)
         {
             using (var fbd = new FolderBrowserDialog())
@@ -295,6 +283,19 @@ namespace McSwiss
                 
 
             }
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            generateSegments();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            sgProgressBar.Visible = false;
+            sgProgressBar.Value = 0;
+            lblProgressText.Visible = false;
+            btnRun.Visible = true;
         }
     }
 }

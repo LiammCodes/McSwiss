@@ -55,7 +55,7 @@
             this.btnTGFiles.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnTGFiles.Font = new System.Drawing.Font("Segoe UI Variable Small Semibol", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnTGFiles.ForeColor = System.Drawing.Color.Silver;
-            this.btnTGFiles.Location = new System.Drawing.Point(332, 310);
+            this.btnTGFiles.Location = new System.Drawing.Point(333, 310);
             this.btnTGFiles.Name = "btnTGFiles";
             this.btnTGFiles.Size = new System.Drawing.Size(100, 35);
             this.btnTGFiles.TabIndex = 1;
