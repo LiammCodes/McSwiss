@@ -34,8 +34,8 @@ namespace McSwiss
         }
 
         private void btnAddSegment_Click(object sender, EventArgs e)
-        { 
-            if(frmList.Count <= 26)
+        {
+            if (frmList.Count <= 26)
             {
                 frmSegment segment_var = new frmSegment(this) { Dock = DockStyle.Top, TopLevel = false, TopMost = true };
                 segment_var.FormBorderStyle = FormBorderStyle.None;
@@ -67,7 +67,7 @@ namespace McSwiss
                 {
                     segment.Show();
                 }
-                
+
                 if (frmList.Count == 26)
                 {
                     btnAddSegment.Enabled = false;
@@ -83,15 +83,15 @@ namespace McSwiss
                 frmList.Remove(lastSegment);
                 this.pnlSegmentList.Controls.Remove(lastSegment);
                 btnAddSegment.Enabled = true;
-            } 
-            
+            }
+
         }
 
         private void lstFileGrid_Enter(object sender, EventArgs e)
         {
             lstFileGrid.Items.Clear();
             lblOutputPath.Text = outputPath;
-            
+
             imgList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(selectedFile));
             FileInfo fi = new FileInfo(selectedFile);
 
@@ -200,7 +200,7 @@ namespace McSwiss
 
             foreach (frmSegment segment in frmList)
             {
-                if (!rg.IsMatch(segment.StartTime) || !rg.IsMatch(segment.EndTime))
+                if (!rg.IsMatch(segment.StartTime) || !rg.IsMatch(segment.EndTime) || segment.StartTime.Length != 5 || segment.EndTime.Length != 5)
                 {
                     formatedCorrectly = false;
                     break;
@@ -222,7 +222,7 @@ namespace McSwiss
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
                 result = MessageBox.Show(message, caption, buttons);
-            } 
+            }
             else if (!correctLength)
             {
                 // Timestamp length error message
@@ -231,7 +231,7 @@ namespace McSwiss
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
                 result = MessageBox.Show(message, caption, buttons);
-            } 
+            }
             else
             {
                 sgProgressBar.Minimum = 0;
@@ -243,7 +243,7 @@ namespace McSwiss
 
                 backgroundWorker1.RunWorkerAsync();
             }
-            
+
         }
         private void btnSelectOutput_Click(object sender, EventArgs e)
         {
@@ -275,12 +275,12 @@ namespace McSwiss
                 selectedFile = newFile;
 
                 lstFileGrid.Items.Clear();
-                
+
                 imgList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(selectedFile));
                 FileInfo fi = new FileInfo(selectedFile);
 
                 lstFileGrid.Items.Add(fi.Name, imgList.Images.Count - 1);
-                
+
 
             }
         }
@@ -296,6 +296,15 @@ namespace McSwiss
             sgProgressBar.Value = 0;
             lblProgressText.Visible = false;
             btnRun.Visible = true;
+        }
+
+        private void lstFileGrid_DoubleClick(object sender, EventArgs e)
+        {
+            Process openMp4 = new Process();
+
+            openMp4.StartInfo.FileName = selectedFile;
+            openMp4.StartInfo.UseShellExecute = true;
+            openMp4.Start();
         }
     }
 }

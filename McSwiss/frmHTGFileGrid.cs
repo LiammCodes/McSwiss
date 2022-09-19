@@ -7,25 +7,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using McSwiss.Properties;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 
 namespace McSwiss
 {
-    public partial class frmPGFileGrid : Form
+    public partial class frmHTGFileGrid : Form
     {
         private List<String> selectedFiles = null;
-        private string outputPath = Environment.GetFolderPath(Environment.SpecialFolder.MyVideos);
-        private string suffix = settings.Default.PGSuffix;
-        private int previewsGenerated = 0;
-
-        public frmPGFileGrid()
+        private String outputPath = Environment.GetFolderPath(Environment.SpecialFolder.MyPictures);
+        private int thumbnailsGenerated = 0;
+        public frmHTGFileGrid()
         {
             InitializeComponent();
         }
 
-        public frmPGFileGrid(List<String> selectedFiles)
+        public frmHTGFileGrid(List<String> selectedFiles)
         {
             this.selectedFiles = selectedFiles;
             InitializeComponent();
@@ -35,7 +32,6 @@ namespace McSwiss
         {
             lstFileGrid.Items.Clear();
             lblOutputPath.Text = outputPath;
-
             foreach (String file in selectedFiles)
             {
                 imgList.Images.Add(System.Drawing.Icon.ExtractAssociatedIcon(file));
@@ -78,41 +74,28 @@ namespace McSwiss
 
         private int getTimeSeconds(String time)
         {
-            // make sure textboxes are formatted right
-            string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
-            Regex rg = new Regex(pattern);
-
             int minutes = Int16.Parse(time.Split(':')[0]);
             int seconds = Int16.Parse(time.Split(':')[1]);
             int totalTime = (minutes * 60) + seconds;
-            return totalTime;
 
+            return totalTime;
         }
 
-        public void generatePreviews()
+        public void generateThumbnails()
         {
-            frmSettings settings = new frmSettings();
-
-            // Preview Generator code
+            // Thumbnail Generator code
 
             // Formatting start time
-            int startTime = getTimeSeconds(txtboxStart.Text);
-            int endTime = getTimeSeconds(txtboxEnd.Text);
-
-            // {0}: input
-            // {1}: start time
-            // {2}: end time
-            // {3}: output
-            string command = @"-i ""{0}"" -ss {1} -to {2} -async 1 ""{3}""";
+            int timestamp = getTimeSeconds(txtboxTimestamp.Text);
+            string command = @"-ss {0} -i ""{1}"" -vframes 1 -an ""{2}""";
 
             foreach (String file in selectedFiles)
             {
-
                 // Create process for trimming the video
                 Process ffmpeg = new Process();
                 ffmpeg.StartInfo.RedirectStandardOutput = false;
                 ffmpeg.StartInfo.RedirectStandardError = false;
-                ffmpeg.StartInfo.FileName = "ffmpeg.exe";
+                ffmpeg.StartInfo.FileName = "ffmpeg.exe"; // TODO: Maybe this fixes the above ^ ??
                 ffmpeg.StartInfo.UseShellExecute = false;
                 ffmpeg.StartInfo.CreateNoWindow = true;
 
@@ -120,98 +103,84 @@ namespace McSwiss
                 string fullFileName = Path.GetFileName(file);
                 int idx = fullFileName.LastIndexOf('.');
                 string fileName = fullFileName[..idx];
-                string fileExt = fullFileName[(idx + 1)..];
-                string newFileName = string.Format("{0}{1}.{2}", fileName, suffix, fileExt);
+                string newFileName = string.Format("{0}.jpg", fileName);
                 string outputFile = Path.Join(outputPath, newFileName);
 
                 // check if output file already exists
                 if (File.Exists(outputFile))
                 {
-                    // error message
+                    // Error message
                     string errorMessage = String.Format(@"The file {0} already exists, would you like to replace it?", outputFile);
                     string errorTitle = "Error: File already exists";
                     MessageBoxButtons b = MessageBoxButtons.YesNo;
                     DialogResult r;
                     r = MessageBox.Show(errorMessage, errorTitle, b);
-                    if(r == DialogResult.Yes)
+                    if (r == DialogResult.Yes)
                     {
                         // replace file
                         File.Delete(outputFile);
 
-                        ffmpeg.StartInfo.Arguments = string.Format(command, file, startTime.ToString(), endTime.ToString(), outputFile);
+                        ffmpeg.StartInfo.Arguments = string.Format(command, timestamp.ToString(), file, outputFile);
                         ffmpeg.Start();
-                        pgProgressBar.Invoke((MethodInvoker)(() => pgProgressBar.Value += 1));
-                        lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count)));
+                        tgProgressBar.Invoke((MethodInvoker)(() => tgProgressBar.Value += 1));
+                        lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating thumbnail {0}/{1}...", tgProgressBar.Value.ToString(), selectedFiles.Count)));
                         ffmpeg.WaitForExit();
-                        previewsGenerated++;
-
+                        thumbnailsGenerated++;
                     }
                     else
                     {
                         continue;
                     }
-                } else
-                {
-                    ffmpeg.StartInfo.Arguments = string.Format(command, file, startTime.ToString(), endTime.ToString(), outputFile);
-                    ffmpeg.Start();
-                    pgProgressBar.Invoke((MethodInvoker)(() => pgProgressBar.Value += 1));
-                    lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating preview {0}/{1}...", pgProgressBar.Value.ToString(), selectedFiles.Count)));
-                    ffmpeg.WaitForExit();
-                    previewsGenerated++;
                 }
-
+                else
+                {
+                    ffmpeg.StartInfo.Arguments = string.Format(command, timestamp.ToString(), file, outputFile);
+                    ffmpeg.Start();
+                    tgProgressBar.Invoke((MethodInvoker)(() => tgProgressBar.Value += 1));
+                    lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = String.Format(@"Generating thumbnail {0}/{1}...", tgProgressBar.Value.ToString(), selectedFiles.Count)));
+                    ffmpeg.WaitForExit();
+                    thumbnailsGenerated++;
+                }
             }
 
             lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = "Complete."));
             imgLoading.Invoke((MethodInvoker)(() => imgLoading.Visible = false));
 
             // Success message
-            string message = String.Format(@"{0} previews have been generated and saved to {1}", previewsGenerated, outputPath);
+            string message = String.Format(@"{0} thumbnails have been generated and saved to {1}", thumbnailsGenerated, outputPath);
             string caption = "Success!";
             MessageBoxButtons buttons = MessageBoxButtons.OK;
             DialogResult result;
             result = MessageBox.Show(message, caption, buttons);
+            
         }
 
         private void btnRun_Click(object sender, EventArgs e)
         {
 
-            previewsGenerated = 0;
+            thumbnailsGenerated = 0;
 
             // Create regex pattern for timestamps
             string pattern = @"(2[0-3]|[01][0-9]):[0-5][0-9]";
             Regex rg = new Regex(pattern);
 
-            if (!rg.IsMatch(txtboxStart.Text) || !rg.IsMatch(txtboxEnd.Text) || txtboxStart.Text.Length != 5 || txtboxEnd.Text.Length != 5)
+            if (!rg.IsMatch(txtboxTimestamp.Text) || txtboxTimestamp.Text.Length != 5)
             {
-
                 // Format error message
-                string message = "Please enter valid start and end timestamps in the following format (MM:SS).";
+                string message = "Please enter a valid timestamp in the following format (MM:SS).";
                 string caption = "Timestamp Format Error";
-                MessageBoxButtons buttons = MessageBoxButtons.OK;
-                DialogResult result;
-                result = MessageBox.Show(message, caption, buttons);
-
-
-            } 
-            else if (getTimeSeconds(txtboxStart.Text) >= getTimeSeconds(txtboxEnd.Text))
-            {
-                // Timestamp length error message
-                string message = "Please ensure the start timestamp is before the end timestamp.";
-                string caption = "Timestamp Length Error";
                 MessageBoxButtons buttons = MessageBoxButtons.OK;
                 DialogResult result;
                 result = MessageBox.Show(message, caption, buttons);
             }
             else
             {
-                pgProgressBar.Minimum = 0;
-                pgProgressBar.Maximum = selectedFiles.Count;
+                tgProgressBar.Minimum = 0;
+                tgProgressBar.Maximum = selectedFiles.Count;
                 btnRun.Visible = false;
-                pgProgressBar.Visible = true;
+                tgProgressBar.Visible = true;
                 lblProgressText.Visible = true;
                 imgLoading.Visible = true;
-
                 backgroundWorker1.RunWorkerAsync();
             }
         }
@@ -221,6 +190,7 @@ namespace McSwiss
             using (var fbd = new FolderBrowserDialog())
             {
                 DialogResult result = fbd.ShowDialog();
+
                 if (result == DialogResult.OK && !string.IsNullOrWhiteSpace(fbd.SelectedPath))
                 {
                     outputPath = fbd.SelectedPath;
@@ -231,37 +201,28 @@ namespace McSwiss
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            generatePreviews();
+            generateThumbnails();
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            pgProgressBar.Visible = false;
-            pgProgressBar.Value = 0;
+            tgProgressBar.Visible = false;
+            tgProgressBar.Value = 0;
             lblProgressText.Visible = false;
             btnRun.Visible = true;
         }
 
-        private void RemoveSelectionStart(Object obj)
+        private void RemoveSelection(Object obj)
         {
-            if (txtboxStart != null)
+            if (txtboxTimestamp != null)
             {
-                txtboxStart.SelectionLength = 0;
+                txtboxTimestamp.SelectionLength = 0;
             }
         }
 
-        private void RemoveSelectionEnd(Object obj)
+        private void txtboxTimestamp_TextChanged(object sender, EventArgs e)
         {
-
-            if (txtboxEnd != null)
-            {
-                txtboxEnd.SelectionLength = 0;
-            }
-        }
-
-        private void txtboxStart_TextChanged(object sender, EventArgs e)
-        {
-            string time = txtboxStart.Text;
+            string time = txtboxTimestamp.Text;
 
             // new number entered
             if (time.Length > 5)
@@ -276,12 +237,11 @@ namespace McSwiss
                     if (!time[0].ToString().Equals("0"))
                     {
                         time = String.Format(@"{0}{1}:{2}{3}", time[0], time[1], time[3], time[4]);
-                    }
-                    else
+                    } else
                     {
                         time = String.Format(@"{0}{1}:{2}{3}", time[1], time[3], time[4], time[5]);
                     }
-
+                    
                 }
             }
 
@@ -291,68 +251,20 @@ namespace McSwiss
                 time = String.Format(@"{0}{1}:{2}{3}", "0", time[0], time[1], time[3]);
             }
 
-            txtboxStart.Text = time;
-            txtboxStart.Select(txtboxStart.Text.Length, 0);
+            txtboxTimestamp.Text = time;
+            txtboxTimestamp.Select(txtboxTimestamp.Text.Length, 0);
         }
 
-        private void txtboxEnd_TextChanged(object sender, EventArgs e)
+        private void txtboxTimestamp_MouseUp(object sender, MouseEventArgs e)
         {
-            string time = txtboxEnd.Text;
-
-            // new number entered
-            if (time.Length > 5)
-            {
-                var regex = new Regex(@"^\d$");
-                if (!regex.IsMatch(time[5].ToString()))
-                {
-                    time = String.Format(@"{0}{1}:{2}{3}", time[0], time[1], time[3], time[4]);
-                }
-                else
-                {
-                    if (!time[0].ToString().Equals("0"))
-                    {
-                        time = String.Format(@"{0}{1}:{2}{3}", time[0], time[1], time[3], time[4]);
-                    }
-                    else
-                    {
-                        time = String.Format(@"{0}{1}:{2}{3}", time[1], time[3], time[4], time[5]);
-                    }
-
-                }
-            }
-
-            //new number removed
-            if (time.Length < 5)
-            {
-                time = String.Format(@"{0}{1}:{2}{3}", "0", time[0], time[1], time[3]);
-            }
-
-            txtboxEnd.Text = time;
-            txtboxEnd.Select(txtboxEnd.Text.Length, 0);
+            RemoveSelection(sender);
+            txtboxTimestamp.Select(txtboxTimestamp.Text.Length, 0);
         }
 
-        private void txtboxStart_MouseUp(object sender, MouseEventArgs e)
+        private void txtboxTimestamp_KeyUp(object sender, KeyEventArgs e)
         {
-            RemoveSelectionStart(sender);
-            txtboxStart.Select(txtboxStart.Text.Length, 0);
-        }
-
-        private void txtboxEnd_MouseUp(object sender, MouseEventArgs e)
-        {
-            RemoveSelectionEnd(sender);
-            txtboxEnd.Select(txtboxEnd.Text.Length, 0);
-        }
-
-        private void txtboxStart_KeyUp(object sender, KeyEventArgs e)
-        {
-            RemoveSelectionStart(sender);
-            txtboxStart.Select(txtboxStart.Text.Length, 0);
-        }
-
-        private void txtboxEnd_KeyUp(object sender, KeyEventArgs e)
-        {
-            RemoveSelectionEnd(sender);
-            txtboxEnd.Select(txtboxEnd.Text.Length, 0);
+            RemoveSelection(sender);
+            txtboxTimestamp.Select(txtboxTimestamp.Text.Length, 0);
         }
 
         private void lstFileGrid_DoubleClick(object sender, EventArgs e)
@@ -362,7 +274,6 @@ namespace McSwiss
             openMp4.StartInfo.FileName = selectedFiles[lstFileGrid.SelectedIndices[0]];
             openMp4.StartInfo.UseShellExecute = true;
             openMp4.Start();
-
         }
     }
 }

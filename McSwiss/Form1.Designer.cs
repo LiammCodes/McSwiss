@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.panel1 = new System.Windows.Forms.Panel();
+            this.btnTransGen = new System.Windows.Forms.Button();
+            this.btnHypThumbnailGen = new System.Windows.Forms.Button();
             this.btnSettings = new System.Windows.Forms.Button();
             this.btnThumbnailGen = new System.Windows.Forms.Button();
             this.btnSegmentGen = new System.Windows.Forms.Button();
@@ -49,6 +51,8 @@
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.panel1.Controls.Add(this.btnTransGen);
+            this.panel1.Controls.Add(this.btnHypThumbnailGen);
             this.panel1.Controls.Add(this.btnSettings);
             this.panel1.Controls.Add(this.btnThumbnailGen);
             this.panel1.Controls.Add(this.btnSegmentGen);
@@ -59,6 +63,46 @@
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(186, 577);
             this.panel1.TabIndex = 0;
+            // 
+            // btnTransGen
+            // 
+            this.btnTransGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnTransGen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnTransGen.FlatAppearance.BorderSize = 0;
+            this.btnTransGen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.btnTransGen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnTransGen.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnTransGen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(223)))));
+            this.btnTransGen.Location = new System.Drawing.Point(0, 312);
+            this.btnTransGen.Name = "btnTransGen";
+            this.btnTransGen.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnTransGen.Size = new System.Drawing.Size(186, 42);
+            this.btnTransGen.TabIndex = 3;
+            this.btnTransGen.Text = "Transcript Generator";
+            this.btnTransGen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnTransGen.UseVisualStyleBackColor = false;
+            this.btnTransGen.Click += new System.EventHandler(this.btnTransGen_Click);
+            this.btnTransGen.Leave += new System.EventHandler(this.btnTransGen_Leave);
+            // 
+            // btnHypThumbnailGen
+            // 
+            this.btnHypThumbnailGen.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnHypThumbnailGen.Dock = System.Windows.Forms.DockStyle.Top;
+            this.btnHypThumbnailGen.FlatAppearance.BorderSize = 0;
+            this.btnHypThumbnailGen.FlatAppearance.MouseDownBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
+            this.btnHypThumbnailGen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnHypThumbnailGen.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnHypThumbnailGen.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(223)))), ((int)(((byte)(223)))), ((int)(((byte)(223)))));
+            this.btnHypThumbnailGen.Location = new System.Drawing.Point(0, 270);
+            this.btnHypThumbnailGen.Name = "btnHypThumbnailGen";
+            this.btnHypThumbnailGen.Padding = new System.Windows.Forms.Padding(15, 0, 0, 0);
+            this.btnHypThumbnailGen.Size = new System.Drawing.Size(186, 42);
+            this.btnHypThumbnailGen.TabIndex = 2;
+            this.btnHypThumbnailGen.Text = "Hyper Thumbnail Gen";
+            this.btnHypThumbnailGen.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btnHypThumbnailGen.UseVisualStyleBackColor = false;
+            this.btnHypThumbnailGen.Click += new System.EventHandler(this.btnHypThumbnailGen_Click);
+            this.btnHypThumbnailGen.Leave += new System.EventHandler(this.btnHypThumbnailGen_Leave);
             // 
             // btnSettings
             // 
@@ -257,5 +301,7 @@
         private Button btnMinimize;
         private Panel pnlMover;
         private Panel pnlFormLoader;
+        private Button btnHypThumbnailGen;
+        private Button btnTransGen;
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace McSwiss
 {
-    partial class frmPGFileGrid
+    partial class frmTransFileGrid
     {
         /// <summary>
         /// Required designer variable.
@@ -29,21 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPGFileGrid));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmTransFileGrid));
             this.lstFileGrid = new System.Windows.Forms.ListView();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.btnRun = new System.Windows.Forms.Button();
-            this.txtboxEnd = new System.Windows.Forms.TextBox();
-            this.txtboxStart = new System.Windows.Forms.TextBox();
-            this.lblStart = new System.Windows.Forms.Label();
-            this.lblEnd = new System.Windows.Forms.Label();
             this.lblOutput = new System.Windows.Forms.Label();
             this.lblOutputPath = new System.Windows.Forms.Label();
             this.btnSelectOutput = new System.Windows.Forms.Button();
-            this.pgProgressBar = new System.Windows.Forms.ProgressBar();
+            this.tgProgressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressText = new System.Windows.Forms.Label();
             this.imgLoading = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.btnRunDownload = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
             this.SuspendLayout();
             // 
@@ -79,66 +76,13 @@
             this.btnRun.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnRun.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnRun.ForeColor = System.Drawing.Color.White;
-            this.btnRun.Location = new System.Drawing.Point(577, 422);
+            this.btnRun.Location = new System.Drawing.Point(577, 419);
             this.btnRun.Name = "btnRun";
-            this.btnRun.Size = new System.Drawing.Size(176, 53);
+            this.btnRun.Size = new System.Drawing.Size(176, 56);
             this.btnRun.TabIndex = 4;
-            this.btnRun.Text = "Generate Previews 🎬";
+            this.btnRun.Text = "Transcribe and Upload to S3";
             this.btnRun.UseVisualStyleBackColor = false;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
-            // 
-            // txtboxEnd
-            // 
-            this.txtboxEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtboxEnd.Location = new System.Drawing.Point(129, 452);
-            this.txtboxEnd.Name = "txtboxEnd";
-            this.txtboxEnd.PlaceholderText = "00:00";
-            this.txtboxEnd.Size = new System.Drawing.Size(56, 23);
-            this.txtboxEnd.TabIndex = 2;
-            this.txtboxEnd.Text = "00:00";
-            this.txtboxEnd.TextChanged += new System.EventHandler(this.txtboxEnd_TextChanged);
-            this.txtboxEnd.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtboxEnd_KeyUp);
-            this.txtboxEnd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtboxEnd_MouseUp);
-            // 
-            // txtboxStart
-            // 
-            this.txtboxStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtboxStart.BackColor = System.Drawing.SystemColors.Window;
-            this.txtboxStart.Location = new System.Drawing.Point(129, 422);
-            this.txtboxStart.Name = "txtboxStart";
-            this.txtboxStart.PlaceholderText = "00:00";
-            this.txtboxStart.Size = new System.Drawing.Size(56, 23);
-            this.txtboxStart.TabIndex = 1;
-            this.txtboxStart.Text = "00:00";
-            this.txtboxStart.TextChanged += new System.EventHandler(this.txtboxStart_TextChanged);
-            this.txtboxStart.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtboxStart_KeyUp);
-            this.txtboxStart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtboxStart_MouseUp);
-            // 
-            // lblStart
-            // 
-            this.lblStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStart.AutoSize = true;
-            this.lblStart.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblStart.ForeColor = System.Drawing.Color.White;
-            this.lblStart.Location = new System.Drawing.Point(19, 425);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(98, 15);
-            this.lblStart.TabIndex = 4;
-            this.lblStart.Text = "Start Timestamp:";
-            // 
-            // lblEnd
-            // 
-            this.lblEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEnd.AutoSize = true;
-            this.lblEnd.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblEnd.ForeColor = System.Drawing.Color.White;
-            this.lblEnd.Location = new System.Drawing.Point(24, 455);
-            this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(93, 15);
-            this.lblEnd.TabIndex = 5;
-            this.lblEnd.Text = "End Timestamp:";
             // 
             // lblOutput
             // 
@@ -146,7 +90,7 @@
             this.lblOutput.AutoSize = true;
             this.lblOutput.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblOutput.ForeColor = System.Drawing.Color.White;
-            this.lblOutput.Location = new System.Drawing.Point(212, 425);
+            this.lblOutput.Location = new System.Drawing.Point(12, 422);
             this.lblOutput.Name = "lblOutput";
             this.lblOutput.Size = new System.Drawing.Size(48, 15);
             this.lblOutput.TabIndex = 6;
@@ -159,7 +103,7 @@
             this.lblOutputPath.AutoEllipsis = true;
             this.lblOutputPath.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblOutputPath.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lblOutputPath.Location = new System.Drawing.Point(212, 454);
+            this.lblOutputPath.Location = new System.Drawing.Point(12, 451);
             this.lblOutputPath.Name = "lblOutputPath";
             this.lblOutputPath.Size = new System.Drawing.Size(302, 16);
             this.lblOutputPath.TabIndex = 7;
@@ -173,7 +117,7 @@
             this.btnSelectOutput.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnSelectOutput.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.btnSelectOutput.ForeColor = System.Drawing.Color.White;
-            this.btnSelectOutput.Location = new System.Drawing.Point(272, 422);
+            this.btnSelectOutput.Location = new System.Drawing.Point(72, 419);
             this.btnSelectOutput.Name = "btnSelectOutput";
             this.btnSelectOutput.Size = new System.Drawing.Size(75, 24);
             this.btnSelectOutput.TabIndex = 3;
@@ -181,14 +125,14 @@
             this.btnSelectOutput.UseVisualStyleBackColor = false;
             this.btnSelectOutput.Click += new System.EventHandler(this.btnSelectOutput_Click);
             // 
-            // pgProgressBar
+            // tgProgressBar
             // 
-            this.pgProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgProgressBar.Location = new System.Drawing.Point(369, 422);
-            this.pgProgressBar.Name = "pgProgressBar";
-            this.pgProgressBar.Size = new System.Drawing.Size(384, 23);
-            this.pgProgressBar.TabIndex = 8;
-            this.pgProgressBar.Visible = false;
+            this.tgProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tgProgressBar.Location = new System.Drawing.Point(169, 420);
+            this.tgProgressBar.Name = "tgProgressBar";
+            this.tgProgressBar.Size = new System.Drawing.Size(584, 23);
+            this.tgProgressBar.TabIndex = 8;
+            this.tgProgressBar.Visible = false;
             // 
             // lblProgressText
             // 
@@ -196,11 +140,11 @@
             this.lblProgressText.AutoEllipsis = true;
             this.lblProgressText.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblProgressText.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lblProgressText.Location = new System.Drawing.Point(529, 455);
+            this.lblProgressText.Location = new System.Drawing.Point(528, 454);
             this.lblProgressText.Name = "lblProgressText";
             this.lblProgressText.Size = new System.Drawing.Size(191, 16);
             this.lblProgressText.TabIndex = 9;
-            this.lblProgressText.Text = "Generating preview x/n...";
+            this.lblProgressText.Text = "Transcribing video x/n...";
             this.lblProgressText.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblProgressText.Visible = false;
             // 
@@ -208,11 +152,11 @@
             // 
             this.imgLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.imgLoading.Image = ((System.Drawing.Image)(resources.GetObject("imgLoading.Image")));
-            this.imgLoading.Location = new System.Drawing.Point(726, 453);
+            this.imgLoading.Location = new System.Drawing.Point(726, 451);
             this.imgLoading.Name = "imgLoading";
             this.imgLoading.Size = new System.Drawing.Size(22, 22);
             this.imgLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgLoading.TabIndex = 10;
+            this.imgLoading.TabIndex = 11;
             this.imgLoading.TabStop = false;
             this.imgLoading.Visible = false;
             // 
@@ -221,27 +165,40 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // frmPGFileGrid
+            // btnRunDownload
+            // 
+            this.btnRunDownload.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.btnRunDownload.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
+            this.btnRunDownload.FlatAppearance.BorderSize = 0;
+            this.btnRunDownload.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btnRunDownload.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.btnRunDownload.ForeColor = System.Drawing.Color.White;
+            this.btnRunDownload.Location = new System.Drawing.Point(395, 419);
+            this.btnRunDownload.Name = "btnRunDownload";
+            this.btnRunDownload.Size = new System.Drawing.Size(176, 56);
+            this.btnRunDownload.TabIndex = 12;
+            this.btnRunDownload.Text = "Transcribe and Download";
+            this.btnRunDownload.UseVisualStyleBackColor = false;
+            this.btnRunDownload.Click += new System.EventHandler(this.btnRunDownload_Click);
+            // 
+            // frmTransFileGrid
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
-            this.Controls.Add(this.lblProgressText);
             this.Controls.Add(this.imgLoading);
+            this.Controls.Add(this.lblProgressText);
+            this.Controls.Add(this.tgProgressBar);
             this.Controls.Add(this.btnSelectOutput);
             this.Controls.Add(this.lblOutputPath);
             this.Controls.Add(this.lblOutput);
-            this.Controls.Add(this.lblEnd);
-            this.Controls.Add(this.lblStart);
-            this.Controls.Add(this.txtboxStart);
-            this.Controls.Add(this.txtboxEnd);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.lstFileGrid);
-            this.Controls.Add(this.pgProgressBar);
+            this.Controls.Add(this.btnRunDownload);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmPGFileGrid";
+            this.Name = "frmTransFileGrid";
             this.Text = "frmFileGrid";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragDrop);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragOver);
@@ -256,16 +213,13 @@
         private ListView lstFileGrid;
         private ImageList imgList;
         private Button btnRun;
-        private TextBox txtboxEnd;
-        private TextBox txtboxStart;
-        private Label lblStart;
-        private Label lblEnd;
         private Label lblOutput;
         private Label lblOutputPath;
         private Button btnSelectOutput;
-        private ProgressBar pgProgressBar;
+        private ProgressBar tgProgressBar;
         private Label lblProgressText;
         private PictureBox imgLoading;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private Button btnRunDownload;
     }
 }

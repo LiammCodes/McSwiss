@@ -72,6 +72,8 @@ namespace McSwiss
             btnPreviewGen.BackColor = Color.FromArgb(43, 43, 43);
             btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
             btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnHypThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnTransGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSettings.BackColor = Color.FromArgb(32, 32, 32);
 
             this.pnlFormLoader.Controls.Clear();
@@ -87,6 +89,8 @@ namespace McSwiss
             btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSegmentGen.BackColor = Color.FromArgb(43, 43, 43);
             btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnHypThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnTransGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSettings.BackColor = Color.FromArgb(32, 32, 32);
 
             this.pnlFormLoader.Controls.Clear();
@@ -102,6 +106,8 @@ namespace McSwiss
             btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
             btnThumbnailGen.BackColor = Color.FromArgb(43, 43, 43);
+            btnHypThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnTransGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSettings.BackColor = Color.FromArgb(32, 32, 32);
 
             this.pnlFormLoader.Controls.Clear();
@@ -111,12 +117,48 @@ namespace McSwiss
             FrmThumbnailGen_Var.Show();
         }
 
+        private void btnHypThumbnailGen_Click(object sender, EventArgs e)
+        {
+            lblTitle.Text = "Hyper Thumbnail Generator";
+            btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnHypThumbnailGen.BackColor = Color.FromArgb(43, 43, 43);
+            btnTransGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnSettings.BackColor = Color.FromArgb(32, 32, 32);
+
+            this.pnlFormLoader.Controls.Clear();
+            frmHypThumbnailGen FrmHypThumbnailGen_Var = new frmHypThumbnailGen(this) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmHypThumbnailGen_Var.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FrmHypThumbnailGen_Var);
+            FrmHypThumbnailGen_Var.Show();
+        }
+
+        private void btnTransGen_Click(object sender, EventArgs e)
+        {
+            lblTitle.Text = "Transcript Generator";
+            btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnHypThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnTransGen.BackColor = Color.FromArgb(43, 43, 43);
+            btnSettings.BackColor = Color.FromArgb(32, 32, 32);
+
+            this.pnlFormLoader.Controls.Clear();
+            frmTransGen FrmTransGen_Var = new frmTransGen(this) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+            FrmTransGen_Var.FormBorderStyle = FormBorderStyle.None;
+            this.pnlFormLoader.Controls.Add(FrmTransGen_Var);
+            FrmTransGen_Var.Show();
+        }
+
         private void btnSettings_Click(object sender, EventArgs e)
         {
             lblTitle.Text = "Settings";
             btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
             btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnHypThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            btnTransGen.BackColor = Color.FromArgb(32, 32, 32);
             btnSettings.BackColor = Color.FromArgb(43, 43, 43);
 
             this.pnlFormLoader.Controls.Clear();
@@ -127,6 +169,8 @@ namespace McSwiss
             FrmSettings_Var.PreviewSuffix = Properties.settings.Default.PGSuffix;
             FrmSettings_Var.SegmentNumbers = Properties.settings.Default.SGNumbers;
             FrmSettings_Var.SegmentLetters = Properties.settings.Default.SGLetters;
+            FrmSettings_Var.S3AccessKeyID = Properties.settings.Default.S3AccessKeyID;
+            FrmSettings_Var.S3Secret = Properties.settings.Default.S3Secret;
 
             FrmSettings_Var.Version = String.Format(@"Version: {0}", Assembly.GetExecutingAssembly().GetName().Version.ToString());
             FrmSettings_Var.Show();
@@ -136,26 +180,46 @@ namespace McSwiss
 
         private void btnPreviewGen_Leave(object sender, EventArgs e)
         {
-            btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
+            //btnPreviewGen.BackColor = Color.FromArgb(32, 32, 32);
         }
 
         private void btnSegmentGen_Leave(object sender, EventArgs e)
         {
-            btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
+            //btnSegmentGen.BackColor = Color.FromArgb(32, 32, 32);
         }
 
         private void btnThumbnailGen_Leave(object sender, EventArgs e)
         {
-            btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+            //btnThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+        }
+
+        private void btnHypThumbnailGen_Leave(object sender, EventArgs e)
+        {
+            //btnHypThumbnailGen.BackColor = Color.FromArgb(32, 32, 32);
+        }
+
+        private void btnTransGen_Leave(object sender, EventArgs e)
+        {
+
         }
 
         private void btnSettings_Leave(object sender, EventArgs e)
         {
-            btnSettings.BackColor = Color.FromArgb(32, 32, 32);
+            //btnSettings.BackColor = Color.FromArgb(32, 32, 32);
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            // cleanup
+            for (int i = 1; i <= 20; i++)
+            {
+                string tempFile = Path.Combine(Path.GetTempPath(), String.Format("tempThumb{0}.jpg", i));
+
+                if (File.Exists(tempFile)){
+                    File.Delete(tempFile);
+                }
+            }
+
             this.Close();
         }
 
@@ -185,5 +249,7 @@ namespace McSwiss
         {
             btnMinimize.ForeColor = Color.DimGray;
         }
+
+        
     }
 }

@@ -12,7 +12,7 @@ namespace McSwiss
 {
     public partial class frmThumbnailGen : Form
     {
-        private List<String> selectedFiles = new List<String>();
+        private string selectedFile;
         public frmThumbnailGen()
         {
             InitializeComponent();
@@ -29,17 +29,14 @@ namespace McSwiss
         {
             using (OpenFileDialog dialog = new OpenFileDialog())
             {
-                dialog.Multiselect = true;
-                dialog.Filter = "Video Files|*.mp4;*.mov;*.avi;*.MP4;*.MOV;*.AVI";
+                dialog.Multiselect = false;
+                dialog.Filter = "Video File|*.mp4;*.mov;*.avi;*.MP4;*.MOV;*.AVI";
                 if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    foreach (string file in dialog.FileNames)
-                    {
-                        this.selectedFiles.Add(file);
-                    }
+                    this.selectedFile = dialog.FileName;
 
                     mainForm.getFormLoader().Controls.Clear();
-                    frmTGFileGrid frmTGFileGrid_Var = new frmTGFileGrid(selectedFiles) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+                    frmTGFileGrid frmTGFileGrid_Var = new frmTGFileGrid(selectedFile) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
                     frmTGFileGrid_Var.FormBorderStyle = FormBorderStyle.None;
                     mainForm.getFormLoader().Controls.Add(frmTGFileGrid_Var);
                     frmTGFileGrid_Var.Show();
@@ -61,35 +58,42 @@ namespace McSwiss
             if (files != null && files.Any())
             {
                 string[] acceptableFileTypes = { ".mp4", ".mov", ".avi" };
-                bool unacceptableFile = false;
-                foreach (string file in files)
+
+                if (files.Length == 1)
                 {
-                    if (acceptableFileTypes.Contains(Path.GetExtension(file).ToLower()))
+                    if (acceptableFileTypes.Contains(Path.GetExtension(files.First()).ToLower()))
                     {
-                        this.selectedFiles.Add(file);
+                        this.selectedFile = files.First();
+
+                        mainForm.getFormLoader().Controls.Clear();
+                        frmTGFileGrid frmTGFileGrid_Var = new frmTGFileGrid(selectedFile) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
+                        frmTGFileGrid_Var.FormBorderStyle = FormBorderStyle.None;
+                        mainForm.getFormLoader().Controls.Add(frmTGFileGrid_Var);
+                        frmTGFileGrid_Var.Show();
+
                     }
                     else
                     {
-                        unacceptableFile = true;
+                        // Warning message about unadded files
+                        string message = "Your file was not added because of an unacceptable filetype. Supported filetypes include: .mp4, .mov, and .avi";
+                        string caption = "File not added.";
+                        MessageBoxButtons buttons = MessageBoxButtons.OK;
+                        DialogResult result;
+                        result = MessageBox.Show(message, caption, buttons);
                     }
 
                 }
-                if (unacceptableFile)
+                else
                 {
                     // Warning message about unadded files
-                    string message = "Some files were not added because of unacceptable filetypes.";
-                    string caption = "Some files not added.";
+                    string message = "You may only add one file to the segment generator.";
+                    string caption = "Too many files added.";
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
                     result = MessageBox.Show(message, caption, buttons);
                 }
-            }
 
-            mainForm.getFormLoader().Controls.Clear();
-            frmTGFileGrid frmTGFileGrid_Var = new frmTGFileGrid(selectedFiles) { Dock = DockStyle.Fill, TopLevel = false, TopMost = true };
-            frmTGFileGrid_Var.FormBorderStyle = FormBorderStyle.None;
-            mainForm.getFormLoader().Controls.Add(frmTGFileGrid_Var);
-            frmTGFileGrid_Var.Show();
+            }
         }
     }
 }

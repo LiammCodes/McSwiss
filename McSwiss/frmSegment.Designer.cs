@@ -61,7 +61,10 @@
             this.txtBoxStart.PlaceholderText = "00:00";
             this.txtBoxStart.Size = new System.Drawing.Size(42, 23);
             this.txtBoxStart.TabIndex = 0;
+            this.txtBoxStart.Text = "00:00";
             this.txtBoxStart.TextChanged += new System.EventHandler(this.txtBoxStart_TextChanged);
+            this.txtBoxStart.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBoxStart_KeyUp);
+            this.txtBoxStart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtBoxStart_MouseUp);
             // 
             // txtBoxEnd
             // 
@@ -75,6 +78,10 @@
             this.txtBoxEnd.PlaceholderText = "00:00";
             this.txtBoxEnd.Size = new System.Drawing.Size(42, 23);
             this.txtBoxEnd.TabIndex = 1;
+            this.txtBoxEnd.Text = "00:00";
+            this.txtBoxEnd.TextChanged += new System.EventHandler(this.txtBoxEnd_TextChanged);
+            this.txtBoxEnd.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtBoxEnd_KeyUp);
+            this.txtBoxEnd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtBoxEnd_MouseUp);
             // 
             // lblEnd
             // 

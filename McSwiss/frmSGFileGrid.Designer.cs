@@ -210,6 +210,7 @@
             this.lstFileGrid.UseCompatibleStateImageBehavior = false;
             this.lstFileGrid.DragDrop += new System.Windows.Forms.DragEventHandler(this.lstFileGrid_DragDrop);
             this.lstFileGrid.DragOver += new System.Windows.Forms.DragEventHandler(this.lstFileGrid_DragOver);
+            this.lstFileGrid.DoubleClick += new System.EventHandler(this.lstFileGrid_DoubleClick);
             this.lstFileGrid.Enter += new System.EventHandler(this.lstFileGrid_Enter);
             // 
             // pnlSegmentList

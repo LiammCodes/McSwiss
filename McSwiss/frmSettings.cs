@@ -32,7 +32,9 @@ namespace McSwiss
         private void frmSettings_Load(object sender, EventArgs e)
         {
             this.txtBoxSuffix.Text = settings.Default.PGSuffix.ToString();
-            
+            this.txtBoxAcccessKeyID.Text = settings.Default.S3AccessKeyID.ToString();
+            this.txtBoxSecret.Text = settings.Default.S3Secret.ToString();
+
             if (settings.Default.SGNumbers)
             {
                 this.rdioNumbers.Checked = true;
@@ -96,7 +98,23 @@ namespace McSwiss
             set { this.rdioLetters.Checked = value; }
         }
 
+        public string S3AccessKeyID
+        {
+            get
+            {
+                return this.txtBoxAcccessKeyID.Text;
+            }
+            set { this.txtBoxAcccessKeyID.Text = value; }
+        }
 
+        public string S3Secret
+        {
+            get
+            {
+                return this.txtBoxSecret.Text;
+            }
+            set { this.txtBoxSecret.Text = value; }
+        }
 
         private void btnApply_Click(object sender, EventArgs e)
         {
@@ -105,6 +123,8 @@ namespace McSwiss
             settings.Default.PGSuffix = this.txtBoxSuffix.Text.ToString();
             settings.Default.SGNumbers = this.rdioNumbers.Checked;
             settings.Default.SGLetters = this.rdioLetters.Checked;
+            settings.Default.S3AccessKeyID = this.txtBoxAcccessKeyID.Text.ToString();
+            settings.Default.S3Secret = this.txtBoxSecret.Text.ToString();
             settings.Default.Save();
             this.imgThumbsUp.Show();
             this.lblSaved.Show();

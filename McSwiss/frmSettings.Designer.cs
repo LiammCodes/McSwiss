@@ -50,6 +50,11 @@
             this.lblExample = new System.Windows.Forms.Label();
             this.imgWarning = new System.Windows.Forms.PictureBox();
             this.lblLetterWarning = new System.Windows.Forms.Label();
+            this.txtBoxAcccessKeyID = new System.Windows.Forms.TextBox();
+            this.lblAccessKeyID = new System.Windows.Forms.Label();
+            this.lblTansGen = new System.Windows.Forms.Label();
+            this.txtBoxSecret = new System.Windows.Forms.TextBox();
+            this.lblSecret = new System.Windows.Forms.Label();
             this.pnlAbout.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.imgThumbsUp)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.imgWarning)).BeginInit();
@@ -83,7 +88,7 @@
             this.lblAbout.AutoSize = true;
             this.lblAbout.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblAbout.ForeColor = System.Drawing.Color.White;
-            this.lblAbout.Location = new System.Drawing.Point(484, 30);
+            this.lblAbout.Location = new System.Drawing.Point(478, 30);
             this.lblAbout.Name = "lblAbout";
             this.lblAbout.Size = new System.Drawing.Size(75, 30);
             this.lblAbout.TabIndex = 4;
@@ -99,7 +104,7 @@
             this.pnlAbout.Controls.Add(this.lblVersion);
             this.pnlAbout.Location = new System.Drawing.Point(480, 72);
             this.pnlAbout.Name = "pnlAbout";
-            this.pnlAbout.Size = new System.Drawing.Size(245, 121);
+            this.pnlAbout.Size = new System.Drawing.Size(245, 107);
             this.pnlAbout.TabIndex = 5;
             // 
             // lblAboutName
@@ -118,7 +123,7 @@
             this.lblProperty.AutoSize = true;
             this.lblProperty.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblProperty.ForeColor = System.Drawing.Color.LightGray;
-            this.lblProperty.Location = new System.Drawing.Point(6, 92);
+            this.lblProperty.Location = new System.Drawing.Point(6, 76);
             this.lblProperty.Name = "lblProperty";
             this.lblProperty.Size = new System.Drawing.Size(192, 17);
             this.lblProperty.TabIndex = 9;
@@ -129,7 +134,7 @@
             this.lblDeveloped.AutoSize = true;
             this.lblDeveloped.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblDeveloped.ForeColor = System.Drawing.Color.LightGray;
-            this.lblDeveloped.Location = new System.Drawing.Point(6, 75);
+            this.lblDeveloped.Location = new System.Drawing.Point(6, 59);
             this.lblDeveloped.Name = "lblDeveloped";
             this.lblDeveloped.Size = new System.Drawing.Size(164, 17);
             this.lblDeveloped.TabIndex = 8;
@@ -140,7 +145,7 @@
             this.lblVersion.AutoSize = true;
             this.lblVersion.Font = new System.Drawing.Font("Segoe UI Variable Text", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lblVersion.ForeColor = System.Drawing.Color.LightGray;
-            this.lblVersion.Location = new System.Drawing.Point(6, 40);
+            this.lblVersion.Location = new System.Drawing.Point(6, 37);
             this.lblVersion.Name = "lblVersion";
             this.lblVersion.Size = new System.Drawing.Size(93, 17);
             this.lblVersion.TabIndex = 7;
@@ -284,12 +289,65 @@
             this.lblLetterWarning.Text = "With letter suffixes, you may only make 26 segments";
             this.lblLetterWarning.Visible = false;
             // 
+            // txtBoxAcccessKeyID
+            // 
+            this.txtBoxAcccessKeyID.Location = new System.Drawing.Point(489, 277);
+            this.txtBoxAcccessKeyID.Name = "txtBoxAcccessKeyID";
+            this.txtBoxAcccessKeyID.Size = new System.Drawing.Size(191, 23);
+            this.txtBoxAcccessKeyID.TabIndex = 23;
+            // 
+            // lblAccessKeyID
+            // 
+            this.lblAccessKeyID.AutoSize = true;
+            this.lblAccessKeyID.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblAccessKeyID.ForeColor = System.Drawing.Color.LightGray;
+            this.lblAccessKeyID.Location = new System.Drawing.Point(486, 254);
+            this.lblAccessKeyID.Name = "lblAccessKeyID";
+            this.lblAccessKeyID.Size = new System.Drawing.Size(109, 17);
+            this.lblAccessKeyID.TabIndex = 22;
+            this.lblAccessKeyID.Text = "S3 Access Key ID";
+            // 
+            // lblTansGen
+            // 
+            this.lblTansGen.AutoSize = true;
+            this.lblTansGen.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTansGen.ForeColor = System.Drawing.Color.White;
+            this.lblTansGen.Location = new System.Drawing.Point(480, 205);
+            this.lblTansGen.Name = "lblTansGen";
+            this.lblTansGen.Size = new System.Drawing.Size(215, 30);
+            this.lblTansGen.TabIndex = 21;
+            this.lblTansGen.Text = "Transcript Generator";
+            // 
+            // txtBoxSecret
+            // 
+            this.txtBoxSecret.Location = new System.Drawing.Point(489, 338);
+            this.txtBoxSecret.Name = "txtBoxSecret";
+            this.txtBoxSecret.PasswordChar = '●';
+            this.txtBoxSecret.Size = new System.Drawing.Size(191, 23);
+            this.txtBoxSecret.TabIndex = 25;
+            // 
+            // lblSecret
+            // 
+            this.lblSecret.AutoSize = true;
+            this.lblSecret.Font = new System.Drawing.Font("Segoe UI Variable Text Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblSecret.ForeColor = System.Drawing.Color.LightGray;
+            this.lblSecret.Location = new System.Drawing.Point(486, 315);
+            this.lblSecret.Name = "lblSecret";
+            this.lblSecret.Size = new System.Drawing.Size(133, 17);
+            this.lblSecret.TabIndex = 24;
+            this.lblSecret.Text = "S3 Secret Access Key";
+            // 
             // frmSettings
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
+            this.Controls.Add(this.txtBoxSecret);
+            this.Controls.Add(this.lblSecret);
+            this.Controls.Add(this.txtBoxAcccessKeyID);
+            this.Controls.Add(this.lblAccessKeyID);
+            this.Controls.Add(this.lblTansGen);
             this.Controls.Add(this.imgWarning);
             this.Controls.Add(this.lblLetterWarning);
             this.Controls.Add(this.lblExample);
@@ -341,5 +399,10 @@
         private PictureBox imgWarning;
         private Label lblLetterWarning;
         private Label lblAboutName;
+        private TextBox txtBoxAcccessKeyID;
+        private Label lblAccessKeyID;
+        private Label lblTansGen;
+        private TextBox txtBoxSecret;
+        private Label lblSecret;
     }
 }

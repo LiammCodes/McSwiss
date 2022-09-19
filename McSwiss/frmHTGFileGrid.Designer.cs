@@ -1,6 +1,6 @@
 ﻿namespace McSwiss
 {
-    partial class frmPGFileGrid
+    partial class frmHTGFileGrid
     {
         /// <summary>
         /// Required designer variable.
@@ -29,18 +29,16 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmPGFileGrid));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmHTGFileGrid));
             this.lstFileGrid = new System.Windows.Forms.ListView();
             this.imgList = new System.Windows.Forms.ImageList(this.components);
             this.btnRun = new System.Windows.Forms.Button();
-            this.txtboxEnd = new System.Windows.Forms.TextBox();
-            this.txtboxStart = new System.Windows.Forms.TextBox();
-            this.lblStart = new System.Windows.Forms.Label();
-            this.lblEnd = new System.Windows.Forms.Label();
+            this.txtboxTimestamp = new System.Windows.Forms.TextBox();
+            this.lblTimestamp = new System.Windows.Forms.Label();
             this.lblOutput = new System.Windows.Forms.Label();
             this.lblOutputPath = new System.Windows.Forms.Label();
             this.btnSelectOutput = new System.Windows.Forms.Button();
-            this.pgProgressBar = new System.Windows.Forms.ProgressBar();
+            this.tgProgressBar = new System.Windows.Forms.ProgressBar();
             this.lblProgressText = new System.Windows.Forms.Label();
             this.imgLoading = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -83,62 +81,36 @@
             this.btnRun.Name = "btnRun";
             this.btnRun.Size = new System.Drawing.Size(176, 53);
             this.btnRun.TabIndex = 4;
-            this.btnRun.Text = "Generate Previews 🎬";
+            this.btnRun.Text = "Generate Thumbnails";
             this.btnRun.UseVisualStyleBackColor = false;
             this.btnRun.Click += new System.EventHandler(this.btnRun_Click);
             // 
-            // txtboxEnd
+            // txtboxTimestamp
             // 
-            this.txtboxEnd.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtboxEnd.Location = new System.Drawing.Point(129, 452);
-            this.txtboxEnd.Name = "txtboxEnd";
-            this.txtboxEnd.PlaceholderText = "00:00";
-            this.txtboxEnd.Size = new System.Drawing.Size(56, 23);
-            this.txtboxEnd.TabIndex = 2;
-            this.txtboxEnd.Text = "00:00";
-            this.txtboxEnd.TextChanged += new System.EventHandler(this.txtboxEnd_TextChanged);
-            this.txtboxEnd.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtboxEnd_KeyUp);
-            this.txtboxEnd.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtboxEnd_MouseUp);
+            this.txtboxTimestamp.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.txtboxTimestamp.BackColor = System.Drawing.SystemColors.Window;
+            this.txtboxTimestamp.Location = new System.Drawing.Point(95, 422);
+            this.txtboxTimestamp.Name = "txtboxTimestamp";
+            this.txtboxTimestamp.PlaceholderText = "00:00";
+            this.txtboxTimestamp.Size = new System.Drawing.Size(56, 23);
+            this.txtboxTimestamp.TabIndex = 1;
+            this.txtboxTimestamp.Text = "00:00";
+            this.txtboxTimestamp.TextChanged += new System.EventHandler(this.txtboxTimestamp_TextChanged);
+            this.txtboxTimestamp.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtboxTimestamp_KeyUp);
+            this.txtboxTimestamp.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtboxTimestamp_MouseUp);
             // 
-            // txtboxStart
+            // lblTimestamp
             // 
-            this.txtboxStart.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.txtboxStart.BackColor = System.Drawing.SystemColors.Window;
-            this.txtboxStart.Location = new System.Drawing.Point(129, 422);
-            this.txtboxStart.Name = "txtboxStart";
-            this.txtboxStart.PlaceholderText = "00:00";
-            this.txtboxStart.Size = new System.Drawing.Size(56, 23);
-            this.txtboxStart.TabIndex = 1;
-            this.txtboxStart.Text = "00:00";
-            this.txtboxStart.TextChanged += new System.EventHandler(this.txtboxStart_TextChanged);
-            this.txtboxStart.KeyUp += new System.Windows.Forms.KeyEventHandler(this.txtboxStart_KeyUp);
-            this.txtboxStart.MouseUp += new System.Windows.Forms.MouseEventHandler(this.txtboxStart_MouseUp);
-            // 
-            // lblStart
-            // 
-            this.lblStart.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            this.lblTimestamp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblStart.AutoSize = true;
-            this.lblStart.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblStart.ForeColor = System.Drawing.Color.White;
-            this.lblStart.Location = new System.Drawing.Point(19, 425);
-            this.lblStart.Name = "lblStart";
-            this.lblStart.Size = new System.Drawing.Size(98, 15);
-            this.lblStart.TabIndex = 4;
-            this.lblStart.Text = "Start Timestamp:";
-            // 
-            // lblEnd
-            // 
-            this.lblEnd.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.lblEnd.AutoSize = true;
-            this.lblEnd.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lblEnd.ForeColor = System.Drawing.Color.White;
-            this.lblEnd.Location = new System.Drawing.Point(24, 455);
-            this.lblEnd.Name = "lblEnd";
-            this.lblEnd.Size = new System.Drawing.Size(93, 15);
-            this.lblEnd.TabIndex = 5;
-            this.lblEnd.Text = "End Timestamp:";
+            this.lblTimestamp.AutoSize = true;
+            this.lblTimestamp.Font = new System.Drawing.Font("Segoe UI Semibold", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lblTimestamp.ForeColor = System.Drawing.Color.White;
+            this.lblTimestamp.Location = new System.Drawing.Point(19, 425);
+            this.lblTimestamp.Name = "lblTimestamp";
+            this.lblTimestamp.Size = new System.Drawing.Size(70, 15);
+            this.lblTimestamp.TabIndex = 4;
+            this.lblTimestamp.Text = "Timestamp:";
             // 
             // lblOutput
             // 
@@ -181,14 +153,14 @@
             this.btnSelectOutput.UseVisualStyleBackColor = false;
             this.btnSelectOutput.Click += new System.EventHandler(this.btnSelectOutput_Click);
             // 
-            // pgProgressBar
+            // tgProgressBar
             // 
-            this.pgProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.pgProgressBar.Location = new System.Drawing.Point(369, 422);
-            this.pgProgressBar.Name = "pgProgressBar";
-            this.pgProgressBar.Size = new System.Drawing.Size(384, 23);
-            this.pgProgressBar.TabIndex = 8;
-            this.pgProgressBar.Visible = false;
+            this.tgProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.tgProgressBar.Location = new System.Drawing.Point(369, 422);
+            this.tgProgressBar.Name = "tgProgressBar";
+            this.tgProgressBar.Size = new System.Drawing.Size(384, 23);
+            this.tgProgressBar.TabIndex = 8;
+            this.tgProgressBar.Visible = false;
             // 
             // lblProgressText
             // 
@@ -196,11 +168,11 @@
             this.lblProgressText.AutoEllipsis = true;
             this.lblProgressText.Font = new System.Drawing.Font("Segoe UI Variable Display Semib", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.lblProgressText.ForeColor = System.Drawing.SystemColors.ControlDark;
-            this.lblProgressText.Location = new System.Drawing.Point(529, 455);
+            this.lblProgressText.Location = new System.Drawing.Point(528, 454);
             this.lblProgressText.Name = "lblProgressText";
             this.lblProgressText.Size = new System.Drawing.Size(191, 16);
             this.lblProgressText.TabIndex = 9;
-            this.lblProgressText.Text = "Generating preview x/n...";
+            this.lblProgressText.Text = "Generating thumbnail x/n...";
             this.lblProgressText.TextAlign = System.Drawing.ContentAlignment.TopRight;
             this.lblProgressText.Visible = false;
             // 
@@ -208,11 +180,11 @@
             // 
             this.imgLoading.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.imgLoading.Image = ((System.Drawing.Image)(resources.GetObject("imgLoading.Image")));
-            this.imgLoading.Location = new System.Drawing.Point(726, 453);
+            this.imgLoading.Location = new System.Drawing.Point(726, 451);
             this.imgLoading.Name = "imgLoading";
             this.imgLoading.Size = new System.Drawing.Size(22, 22);
             this.imgLoading.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.imgLoading.TabIndex = 10;
+            this.imgLoading.TabIndex = 11;
             this.imgLoading.TabStop = false;
             this.imgLoading.Visible = false;
             // 
@@ -221,27 +193,25 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // frmPGFileGrid
+            // frmHTGFileGrid
             // 
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
-            this.Controls.Add(this.lblProgressText);
             this.Controls.Add(this.imgLoading);
+            this.Controls.Add(this.lblProgressText);
+            this.Controls.Add(this.tgProgressBar);
             this.Controls.Add(this.btnSelectOutput);
             this.Controls.Add(this.lblOutputPath);
             this.Controls.Add(this.lblOutput);
-            this.Controls.Add(this.lblEnd);
-            this.Controls.Add(this.lblStart);
-            this.Controls.Add(this.txtboxStart);
-            this.Controls.Add(this.txtboxEnd);
+            this.Controls.Add(this.lblTimestamp);
+            this.Controls.Add(this.txtboxTimestamp);
             this.Controls.Add(this.btnRun);
             this.Controls.Add(this.lstFileGrid);
-            this.Controls.Add(this.pgProgressBar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
-            this.Name = "frmPGFileGrid";
+            this.Name = "frmHTGFileGrid";
             this.Text = "frmFileGrid";
             this.DragDrop += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragDrop);
             this.DragOver += new System.Windows.Forms.DragEventHandler(this.frmFileGrid_DragOver);
@@ -256,14 +226,12 @@
         private ListView lstFileGrid;
         private ImageList imgList;
         private Button btnRun;
-        private TextBox txtboxEnd;
-        private TextBox txtboxStart;
-        private Label lblStart;
-        private Label lblEnd;
+        private TextBox txtboxTimestamp;
+        private Label lblTimestamp;
         private Label lblOutput;
         private Label lblOutputPath;
         private Button btnSelectOutput;
-        private ProgressBar pgProgressBar;
+        private ProgressBar tgProgressBar;
         private Label lblProgressText;
         private PictureBox imgLoading;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;

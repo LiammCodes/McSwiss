@@ -12,7 +12,7 @@ namespace McSwiss.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.2.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "17.3.0.0")]
     internal sealed partial class settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static settings defaultInstance = ((settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new settings())));
@@ -56,6 +56,30 @@ namespace McSwiss.Properties {
             }
             set {
                 this["SGLetters"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string S3AccessKeyID {
+            get {
+                return ((string)(this["S3AccessKeyID"]));
+            }
+            set {
+                this["S3AccessKeyID"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string S3Secret {
+            get {
+                return ((string)(this["S3Secret"]));
+            }
+            set {
+                this["S3Secret"] = value;
             }
         }
     }
