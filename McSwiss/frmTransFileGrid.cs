@@ -230,6 +230,16 @@ namespace McSwiss
 
                 }
 
+                // if delete checkbox is checked, remove video files
+                if (cBoxDelete.Checked)
+                {
+                    foreach (string file in selectedFiles)
+                    {
+                        File.Delete(file);
+                    }
+                }
+                
+
                 // Check if trint is done transcribing
                 int totalToTranscribe = stillTranscribing.Count();
                 int indexToTry = 0;
@@ -305,7 +315,7 @@ namespace McSwiss
                 } else
                 {
 
-                    // All trints done transcrbing, download and start uploading to amazon s3
+                    // All trints done transcribing, download and start uploading to amazon s3
                     foreach (Tuple<string, string> trint in completedTrints)
                     {
                         string op = Path.Join(outputPath, trint.Item2);
@@ -335,6 +345,7 @@ namespace McSwiss
             tgProgressBar.Maximum = selectedFiles.Count;
             btnRun.Visible = false;
             btnRunDownload.Visible = false;
+            cBoxDelete.Visible = false;
             tgProgressBar.Visible = true;
             lblProgressText.Visible = true;
             imgLoading.Visible = true;
@@ -348,6 +359,7 @@ namespace McSwiss
             tgProgressBar.Maximum = selectedFiles.Count;
             btnRun.Visible = false;
             btnRunDownload.Visible = false;
+            cBoxDelete.Visible = false;
             tgProgressBar.Visible = true;
             lblProgressText.Visible = true;
             imgLoading.Visible = true;
@@ -380,6 +392,7 @@ namespace McSwiss
             lblProgressText.Visible = false;
             btnRun.Visible = true;
             btnRunDownload.Visible = true;
+            cBoxDelete.Visible = true;
         }
 
         private void lstFileGrid_DoubleClick(object sender, EventArgs e)

@@ -41,6 +41,7 @@
             this.imgLoading = new System.Windows.Forms.PictureBox();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.btnRunDownload = new System.Windows.Forms.Button();
+            this.cBoxDelete = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLoading)).BeginInit();
             this.SuspendLayout();
             // 
@@ -181,6 +182,17 @@
             this.btnRunDownload.UseVisualStyleBackColor = false;
             this.btnRunDownload.Click += new System.EventHandler(this.btnRunDownload_Click);
             // 
+            // cBoxDelete
+            // 
+            this.cBoxDelete.AutoSize = true;
+            this.cBoxDelete.ForeColor = System.Drawing.Color.White;
+            this.cBoxDelete.Location = new System.Drawing.Point(161, 423);
+            this.cBoxDelete.Name = "cBoxDelete";
+            this.cBoxDelete.Size = new System.Drawing.Size(212, 19);
+            this.cBoxDelete.TabIndex = 13;
+            this.cBoxDelete.Text = "Delete video files after transcription";
+            this.cBoxDelete.UseVisualStyleBackColor = true;
+            // 
             // frmTransFileGrid
             // 
             this.AllowDrop = true;
@@ -188,6 +200,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(43)))), ((int)(((byte)(43)))), ((int)(((byte)(43)))));
             this.ClientSize = new System.Drawing.Size(765, 487);
+            this.Controls.Add(this.cBoxDelete);
             this.Controls.Add(this.imgLoading);
             this.Controls.Add(this.lblProgressText);
             this.Controls.Add(this.tgProgressBar);
@@ -221,5 +234,6 @@
         private PictureBox imgLoading;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private Button btnRunDownload;
+        private CheckBox cBoxDelete;
     }
 }
