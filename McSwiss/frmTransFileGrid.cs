@@ -185,8 +185,6 @@ namespace McSwiss
                 DialogResult r;
                 r = MessageBox.Show(errorMessage, errorCaption, b);
 
-
-
             } else
             {
 
@@ -238,7 +236,6 @@ namespace McSwiss
                         File.Delete(file);
                     }
                 }
-                
 
                 // Check if trint is done transcribing
                 int totalToTranscribe = stillTranscribing.Count();
@@ -284,7 +281,7 @@ namespace McSwiss
                         indexToTry++;
                     }
 
-                    // 2.2 second delay before making nesxt API call (max 30 api calls/minute)
+                    // 2.2 second delay before making next API call (max 30 api calls/minute)
                     Thread.Sleep(2200);
                 }
 
@@ -300,8 +297,6 @@ namespace McSwiss
                     }
 
                     // cleanup
-                    
-
                     lblProgressText.Invoke((MethodInvoker)(() => lblProgressText.Text = "Complete."));
                     imgLoading.Invoke((MethodInvoker)(() => imgLoading.Visible = false));
 
@@ -331,7 +326,6 @@ namespace McSwiss
                     MessageBoxButtons buttons = MessageBoxButtons.OK;
                     DialogResult result;
                     result = MessageBox.Show(message, caption, buttons);
-
 
                 }
 
@@ -389,6 +383,7 @@ namespace McSwiss
         {
             tgProgressBar.Visible = false;
             tgProgressBar.Value = 0;
+            imgLoading.Visible = false;
             lblProgressText.Visible = false;
             btnRun.Visible = true;
             btnRunDownload.Visible = true;
